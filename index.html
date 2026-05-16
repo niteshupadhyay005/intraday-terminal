@@ -55,25 +55,25 @@
                 <div id="search-results-dropdown" class="absolute top-[52px] left-0 right-0 bg-[#151412] border border-[#33312b] rounded shadow-2xl max-h-64 overflow-y-auto custom-scroll hidden z-50"></div>
             </div>
 
-            <div class="flex flex-col gap-1.5">
-                <div class="text-[10px] text-[#a09e95] font-black tracking-widest">NIFTY HIGH-LIQUIDITY WATCHLIST</div>
-                <div class="space-y-1 text-xs custom-scroll overflow-y-auto max-h-48" id="watchlist-container">
+            <div class="flex flex-col gap-1.5 flex-1 min-h-0">
+                <div class="text-[10px] text-[#a09e95] font-black tracking-widest">TOP 10 LIQUID WATCHLIST (CLICK TO STUDY)</div>
+                <div class="space-y-1 text-xs custom-scroll overflow-y-auto flex-1 pr-1" id="watchlist-container">
                     <div class="p-2 text-[#a09e95] italic">Syncing tickers...</div>
                 </div>
             </div>
 
-            <div class="flex flex-col gap-1.5 mt-auto border-t border-[#262420] pt-2">
+            <div class="flex flex-col gap-1.5 border-t border-[#262420] pt-2">
                 <div class="text-[10px] text-[#a09e95] font-black tracking-widest flex items-center gap-1">
                     <i data-lucide="activity" class="w-3.5 h-3.5 text-[#3182ce]"></i> HIGH-VOLUME MOMENTUM SCANS
                 </div>
                 <div class="grid grid-cols-1 gap-1 text-xs">
                     <div class="flex justify-between p-2.5 bg-[#0e1f13] border border-[#1b3d24] rounded cursor-pointer" onclick="loadStockDataOnline('TATASTEEL.NS')">
                         <span class="text-[#4ade80] font-black">TATASTEEL</span>
-                        <span class="text-[#4ade80] font-black" id="scan-tatasteel-val">164.20</span>
+                        <span class="text-[#4ade80] font-black" id="scan-tatasteel-val">Loading...</span>
                     </div>
                     <div class="flex justify-between p-2.5 bg-[#1f0e0e] border border-[#3d1b1b] rounded cursor-pointer" onclick="loadStockDataOnline('CIPLA.NS')">
                         <span class="text-[#f87171] font-black">CIPLA</span>
-                        <span class="text-[#f87171] font-black" id="scan-cipla-val">1485.60</span>
+                        <span class="text-[#f87171] font-black" id="scan-cipla-val">Loading...</span>
                     </div>
                 </div>
             </div>
@@ -250,10 +250,13 @@
     <script>
         lucide.createIcons();
 
-        // PERSISTENT STRUCTURAL LEDGER MEMORY ARRAY FOR OPEN TRADES
+        // 1. EXTENDED SELECTION MATRIX: LOAD TOP 10 STRATEGIC LIQUID INTRADAY TICKERS
         const activePositionDatabase = {
-            "SBIN": { entryPrice: 806.40, quantity: 200, direction: "BUY" },
-            "INFY": { entryPrice: 1472.10, quantity: 150, direction: "BUY" }
+            "RELIANCE": { entryPrice: 1358.20, quantity: 150, direction: "BUY" },
+            "SBIN": { entryPrice: 974.40, quantity: 200, direction: "BUY" },
+            "INFY": { entryPrice: 1105.10, quantity: 150, direction: "BUY" },
+            "HDFCBANK": { entryPrice: 764.20, quantity: 250, direction: "BUY" },
+            "TATASTEEL": { entryPrice: 218.40, quantity: 800, direction: "BUY" }
         };
 
         let globalCalculatedCmp = 0;
@@ -470,10 +473,12 @@
             document.getElementById('exec-risk-allotment').innerText = `₹${(sharesQuantityToTrade * pointsDifference).toLocaleString('en-IN', {maximumFractionDigits: 2})}`;
         }
 
-        // NEW COMPONENT: DYNAMIC PORTFOLIO BALANCE ENGINE REAL-TIME MATRIX UPDATER
+        // PORTFOLIO ENGINE UPDATER: REDRAWS WATCHLIST AND ADDS ACTIVE POSITIONS VIA SELECTION KEYS
         async function compileLiveTerminalInterfaceFeeds() {
             const container = document.getElementById('watchlist-container');
-            const systematicCoreQueries = ["SBIN.NS", "TCS.NS", "INFY.NS", "RELIANCE.NS"];
+            
+            // Re-sync selection pool keys to map the absolute Top 10 institutional liquid components
+            const systematicCoreQueries = ["RELIANCE.NS", "HDFCBANK.NS", "ICICIBANK.NS", "SBIN.NS", "BHARTIARTL.NS", "TCS.NS", "INFY.NS", "TATAMOTORS.NS", "AXISBANK.NS", "MARUTI.NS"];
             
             try {
                 const targetUrl = `https://query1.finance.yahoo.com/v8/finance/quote?symbols=${systematicCoreQueries.join(",")}`;
@@ -491,15 +496,16 @@
                     const label = stock.symbol.replace(".NS", "");
                     const price = stock.regularMarketPrice;
                     const change = stock.regularMarketChangePercent || 0;
+                    const trackingColor = change >= 0 ? 'text-[#4ade80]' : 'text-[#f87171]';
                     
+                    // Generate interactive click row triggers across all 10 indices
                     container.innerHTML += `
-                        <div class="flex justify-between p-2 rounded cursor-pointer hover:bg-[#1f1e1a]" onclick="loadStockDataOnline('${stock.symbol}')">
-                            <span class="font-black">${label}</span>
-                            <span class="${change >= 0 ? 'text-[#4ade80]' : 'text-[#f87171]'} font-black">${price.toFixed(2)}</span>
+                        <div class="flex justify-between p-2.5 rounded cursor-pointer hover:bg-[#1f1e1a] border-b border-[#1c1b18] transition-colors" onclick="loadStockDataOnline('${stock.symbol}')">
+                            <span class="font-black tracking-wide">${label}</span>
+                            <span class="${trackingColor} font-black">${price.toFixed(2)} (${change >= 0 ? '+' : ''}${change.toFixed(2)}%)</span>
                         </div>
                     `;
 
-                    // If ticker name has an active position inside our ledger memory database, parse the formula
                     if(activePositionDatabase[label]) {
                         const trade = activePositionDatabase[label];
                         let positionProfit = 0;
@@ -507,7 +513,7 @@
                         if(trade.direction === "BUY") {
                             positionProfit = (price - trade.entryPrice) * trade.quantity;
                         } else {
-                            positionProfit = (trade.entryPrice - price) * trade.quantity; // Short math formula inverse
+                            positionProfit = (trade.entryPrice - price) * trade.quantity;
                         }
                         
                         totalRollingSessionProfit += positionProfit;
@@ -526,16 +532,14 @@
                     }
                 });
 
-                // Remap and update individual layout text blocks using calculation output values
                 document.getElementById('running-positions-box').innerHTML = positionMatrixHtmlStructure;
                 
-                // Color text strings dynamically based on net performance boundaries
                 const headerPnlNode = document.getElementById('top-panel-pnl');
                 headerPnlNode.innerText = `${totalRollingSessionProfit >= 0 ? '+' : ''}₹${totalRollingSessionProfit.toLocaleString('en-IN', {maximumFractionDigits: 2})}`;
                 headerPnlNode.className = `font-black ml-1 ${totalRollingSessionProfit >= 0 ? 'text-[#4ade80] glow-green' : 'text-[#f87171] glow-red'}`;
                 
                 document.getElementById('bottom-floating-pnl').innerText = `${totalRollingSessionProfit >= 0 ? '+' : ''}₹${totalRollingSessionProfit.toLocaleString('en-IN', {maximumFractionDigits: 2})}`;
-                document.getElementById('bottom-realized-pnl').innerText = `+₹5,210.00`; // Static locked realized tracking placeholder
+                document.getElementById('bottom-realized-pnl').innerText = `+₹5,210.00`; 
                 
                 const targetCapital = parseFloat(document.getElementById('capital-input-field').value) || 1000000;
                 const netDrawdownPercentage = (totalRollingSessionProfit / targetCapital) * 100;
@@ -548,17 +552,14 @@
                 const indexJson = await indexRes.json();
                 const indices = indexJson.quoteResponse.result;
 
-                const niftyCmp = indices[0].regularMarketPrice;
-                const niftyChange = indices[0].regularMarketChange || -46.10;
-                const niftyPct = indices[0].regularMarketChangePercent || -0.19;
+                document.getElementById('panel-nifty-val').innerText = indices[0].regularMarketPrice.toLocaleString('en-IN', {minimumFractionDigits: 2});
+                document.getElementById('panel-banknifty-val').innerText = indices[1].regularMarketPrice.toLocaleString('en-IN', {minimumFractionDigits: 2});
                 
-                const bankniftyCmp = indices[1].regularMarketPrice;
-                const bankniftyChange = indices[1].regularMarketChange || -418.60;
-                const bankniftyPct = indices[1].regularMarketChangePercent || -0.77;
+                const scanTataSteelCmp = stockArray.find(s => s.symbol === "TATASTEEL.NS")?.regularMarketPrice || 216.80;
+                const scanCiplaCmp = stockArray.find(s => s.symbol === "CIPLA.NS")?.regularMarketPrice || 1435.00;
+                document.getElementById('scan-tatasteel-val').innerText = `₹${scanTataSteelCmp.toFixed(2)}`;
+                document.getElementById('scan-cipla-val').innerText = `₹${scanCiplaCmp.toFixed(2)}`;
 
-                document.getElementById('panel-nifty-val').innerText = niftyCmp.toLocaleString('en-IN', {minimumFractionDigits: 2});
-                document.getElementById('panel-banknifty-val').innerText = bankniftyCmp.toLocaleString('en-IN', {minimumFractionDigits: 2});
-                
             } catch (err) {
                 console.error("Watchlist network alert:", err);
             }
@@ -574,7 +575,7 @@
         window.onload = function() {
             compileLiveTerminalInterfaceFeeds();
             loadStockDataOnline("RELIANCE.NS");
-            setInterval(compileLiveTerminalInterfaceFeeds, 45000);
+            setInterval(compileLiveTerminalInterfaceFeeds, 15000);
         };
     </script>
 </body>
