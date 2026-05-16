@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SEBI-Registered Institutional Terminal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide@0.344.0/dist/umd/lucide.min.js"></script>
+    <style>
+        body {
+            background-color: #161512;
+            font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+        }
+        .custom-scroll::-webkit-scrollbar { width: 4px; height: 4px; }
+        .custom-scroll::-webkit-scrollbar-track { background: #1c1b17; }
+        .custom-scroll::-webkit-scrollbar-thumb { background: #383630; }
+    </style>
+</head>
+<body class="text-[#e2e0d9] h-screen flex flex-col overflow-hidden p-2 gap-2 select-none">
+
+    <header class="bg-[#1c1b17] border border-[#2d2b24] px-4 py-2 flex items-center justify-between text-xs rounded">
+        <div class="flex items-center gap-6">
+            <div class="flex items-center gap-2">
+                <span class="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse"></span>
+                <span class="text-[#a09e95]">DATA STREAM:</span>
+                <span class="text-white font-bold">EXCHANGE → WEBSOCKET API → SYSTEM CORE (Latency: 14ms)</span>
+            </div>
+            <div class="border-l border-[#2d2b24] h-4"></div>
+            <div>CAPITAL: <span class="text-white font-bold">₹10,00,000</span></div>
+            <div>DAILY P&L: <span class="text-[#4ade80] font-bold">+₹4,320</span></div>
+            <div>MAX DRAWDOWN LIMIT: <span class="text-[#f87171] font-bold">3.0%</span></div>
+        </div>
+        <div class="flex items-center gap-4">
+            <span class="text-[#a09e95]" id="clock-display">00:00:00</span>
+            <span class="bg-[#1b3622] border border-[#275432] text-[#4ade80] px-2 py-0.5 rounded text-[10px] font-bold">SEBI COMPLIANT</span>
+        </div>
+    </header>
+
+    <main class="flex-1 flex gap-2 min-h-0">
+        
+        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-4 min-h-0">
+            <div class="flex flex-col gap-1.5">
+                <div class="flex justify-between items-center text-[11px] text-[#a09e95] font-bold tracking-wider mb-1">
+                    <span>NIFTY 200 LIQUID WATCHLIST</span>
+                    <span>200 active</span>
+                </div>
+                <div class="space-y-1 text-xs">
+                    <div class="flex justify-between p-2 bg-[#232b38] border-l-2 border-[#3182ce] rounded cursor-pointer">
+                        <span class="font-bold text-white">RELIANCE</span>
+                        <span class="text-[#4ade80]">2847.30 (+1.4%)</span>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-[#252420] rounded cursor-pointer transition-colors">
+                        <span>HDFCBANK</span>
+                        <span class="text-[#f87171]">1623.38 (-0.8%)</span>
+                    </div>
+                    <div class="flex justify-between p-2 hover:bg-[#252420] rounded cursor-pointer transition-colors">
+                        <span>INFY</span>
+                        <span class="text-[#4ade80]">1481.75 (+2.1%)</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex flex-col gap-1.5">
+                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-1 flex items-center gap-1">
+                    <i data-lucide="activity" class="w-3 h-3 text-[#3182ce]"></i> LIVE BREAKOUT SCANNER (VOLUME > 2X)
+                </div>
+                <div class="space-y-1 text-xs">
+                    <div class="flex justify-between p-2 bg-[#192b1d] border border-[#224d29] rounded">
+                        <span class="text-[#4ade80] font-bold">LTIM</span>
+                        <span class="text-[#4ade80]">5312.00 (+3.2%) [Vol 2.4x]</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-[#2d1a1a] border border-[#4d2222] rounded">
+                        <span class="text-[#f87171] font-bold">ONGC</span>
+                        <span class="text-[#f87171]">188.45 (-2.7%) [Vol 2.1x]</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="mt-auto border-t border-[#2d2b24] pt-3">
+                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-2">SECTOR STRENGTH CORRELATION</div>
+                <div class="grid grid-cols-3 gap-1.5 text-[11px] text-center">
+                    <div class="p-1 bg-[#192b1d] border border-[#224d29] text-[#4ade80] rounded">IT +1.8%</div>
+                    <div class="p-1 bg-[#2d1a1a] border border-[#4d2222] text-[#f87171] rounded">BANK -0.4%</div>
+                    <div class="p-1 bg-[#192b1d] border border-[#224d29] text-[#4ade80] rounded">AUTO +0.7%</div>
+                </div>
+            </div>
+        </section>
+
+        <section class="flex-1 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col relative min-h-0">
+            <div class="p-3 border-b border-[#2d2b24] flex justify-between items-center text-xs">
+                <div class="flex items-center gap-3">
+                    <span class="font-bold text-white text-sm">RELIANCE</span>
+                    <span class="text-[#a09e95]">|</span>
+                    <span class="bg-[#24231e] px-2 py-0.5 rounded text-[#e2e0d9]">5-MIN CHART</span>
+                    <span class="text-[#4ade80] font-bold">Live CMP: 2847.30</span>
+                </div>
+                <div class="flex items-center gap-2">
+                    <span class="bg-[#3b1d54] text-[#d6bdf2] px-1.5 py-0.5 rounded text-[10px] font-bold">VWAP SYSTEM</span>
+                    <span class="bg-[#54381d] text-[#f2dfbd] px-1.5 py-0.5 rounded text-[10px] font-bold">SUPERTREND</span>
+                </div>
+            </div>
+
+            <div class="flex-1 relative bg-[#12110e] min-h-0">
+                
+                <div class="absolute top-2 left-2 right-2 bg-[#122e19] border border-[#1b4d24] text-[#4ade80] px-4 py-2 rounded flex justify-between items-center text-xs font-bold z-10 shadow-lg">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="trending-up" class="w-4 h-4 text-[#4ade80]"></i>
+                        <span class="tracking-wider">AUTOMATED PROMPT: TAKE PROFIT TARGET HIT AREA</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-white text-sm">₹2,871.50</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300">TARGET GAIN: +₹24.20 (1:2.4 R:R)</span>
+                    </div>
+                </div>
+
+                <canvas id="primaryWaveformCanvas" class="w-full h-full p-4 pt-14 pb-14"></canvas>
+
+                <div class="absolute bottom-2 left-2 right-2 bg-[#331414] border border-[#4d1b1b] text-[#f87171] px-4 py-2 rounded flex justify-between items-center text-xs font-bold z-10 shadow-lg">
+                    <div class="flex items-center gap-2">
+                        <i data-lucide="shield-alert" class="w-4 h-4 text-[#f87171]"></i>
+                        <span class="tracking-wider">CRITICAL PROMPT: ENFORCED SYSTEM STOP-LOSS BOUNDARY</span>
+                    </div>
+                    <div class="flex items-center gap-4">
+                        <span class="text-white text-sm">₹2,835.20</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300">MAX RISK: -₹12.10 (ATR x 1.0)</span>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-4 min-h-0">
+            <div class="border border-[#2d2b24] bg-[#12110e] p-3 rounded">
+                <div class="text-[10px] text-[#a09e95] font-bold tracking-wider mb-2">QUANT ENGINE EXECUTION ORDER</div>
+                <div class="text-xs space-y-2">
+                    <div class="text-[#4ade80] font-bold flex items-center gap-1 text-sm bg-[#16261a] p-1.5 rounded border border-[#1b4d24]">
+                        <i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: BUY RELIANCE
+                    </div>
+                    <div class="space-y-1 pt-1 text-[#c2c0b6]">
+                        <div class="flex justify-between"><span>Trigger Price</span><span class="text-white font-bold">₹2,847.30</span></div>
+                        <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white">35 Shares</span></div>
+                        <div class="flex justify-between"><span>Capital at Risk</span><span class="text-[#f87171]">₹9,870 (1.0%)</span></div>
+                        <div class="flex justify-between"><span>Risk-Reward Ratio</span><span class="text-[#4ade80]">1 : 2.4</span></div>
+                    </div>
+                    <div class="grid grid-cols-2 gap-2 pt-2">
+                        <button class="bg-[#16331c] hover:bg-[#1f4d29] text-[#4ade80] py-2 rounded font-bold border border-[#1f4d29] transition-all text-xs" onclick="executeOrderNotify()">CONFIRM ORDER</button>
+                        <button class="bg-[#24231e] hover:bg-[#2d2c26] text-[#a09e95] py-2 rounded font-bold border border-[#383630] transition-all text-xs">PASS SIGNAL</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="flex-1 min-h-0 flex flex-col">
+                <div class="text-[10px] text-[#a09e95] font-bold tracking-wider mb-2">RUNNING INTRADAY POSITIONS (2)</div>
+                <div class="space-y-1 overflow-y-auto custom-scroll flex-1">
+                    <div class="flex justify-between p-2 bg-[#12110e] border border-[#2d2b24] rounded items-center">
+                        <div>
+                            <div class="text-white font-bold text-xs">INFY</div>
+                            <div class="text-[10px] text-[#a09e95]">Qty: 67 | Long Position</div>
+                        </div>
+                        <span class="text-[#4ade80] font-bold text-xs">+₹2,814</span>
+                    </div>
+                    <div class="flex justify-between p-2 bg-[#12110e] border border-[#2d2b24] rounded items-center">
+                        <div>
+                            <div class="text-white font-bold text-xs">LTIM</div>
+                            <div class="text-[10px] text-[#a09e95]">Qty: 18 | Long Position</div>
+                        </div>
+                        <span class="text-[#4ade80] font-bold text-xs">+₹1,506</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="border-t border-[#2d2b24] pt-3 text-xs space-y-1 text-[#c2c0b6]">
+                <div class="text-[10px] text-[#a09e95] font-bold tracking-wider mb-1">ACCOUNT RISK BALANCE MATRIX</div>
+                <div class="flex justify-between"><span>Realized P&L</span><span class="text-[#4ade80] font-bold">+₹4,320</span></div>
+                <div class="flex justify-between"><span>Floating Open P&L</span><span class="text-[#4ade80] font-bold">+₹4,320</span></div>
+                <div class="flex justify-between"><span>Current Drawdown State</span><span class="text-[#f87171]">-0.43%</span></div>
+                <div class="flex justify-between"><span>System Hard Kill-Switch</span><span class="text-white font-bold">3.0% Max</span></div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="flex gap-2 items-center text-[11px] h-10 mt-auto">
+        <div class="bg-[#1c1b17] border border-[#2d2b24] px-4 h-full flex items-center gap-4 rounded text-[#c2c0b6]">
+            <div>NIFTY 50 <span class="text-[#4ade80] font-bold ml-1">24,312 (+0.4%)</span></div>
+            <div>BANK NIFTY <span class="text-[#f87171] font-bold ml-1">52,144 (-0.1%)</span></div>
+            <div>INDIA VIX <span class="text-white font-bold ml-1">13.2</span></div>
+            <div>USD/INR <span class="text-white font-bold ml-1">83.42</span></div>
+        </div>
+        
+        <button class="flex-1 h-full bg-[#1c1b17] hover:bg-[#7a1d1d] border border-[#2d2b24] hover:border-[#a83232] text-white rounded flex items-center justify-center font-bold text-xs tracking-widest gap-2 transition-all duration-150 cursor-pointer shadow-md uppercase" onclick="triggerSystemicLiquidationSweep()">
+            <i data-lucide="alert-octagon" class="w-4 h-4 animate-pulse"></i>
+            CRITICAL FORCE EXIT — LIQUIDATE AND SQUARE OFF ALL OPEN POSITIONS
+        </button>
+    </footer>
+
+    <script>
+        // Init vector asset layout icons
+        lucide.createIcons();
+
+        // High-precision system synchronized clock ticker
+        function runSystemClockTicker() {
+            const timeObject = new Date();
+            document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
+        }
+        setInterval(runSystemClockTicker, 1000);
+        runSystemClockTicker();
+
+        // High Performance Rendering Engine For Price Candlesticks Mock Configuration
+        const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
+        
+        const simulationChartEngine = new Chart(UI_Canvas_Node, {
+            type: 'line',
+            data: {
+                labels: Array.from({length: 15}, (_, tickIdx) => `09:${15 + tickIdx * 5}`),
+                datasets: [
+                    {
+                        label: 'VWAP Baseline Vector',
+                        data: [2810, 2815, 2814, 2819, 2822, 2825, 2824, 2829, 2832, 2835, 2834, 2839, 2842, 2845, 2847],
+                        borderColor: '#a78bfa',
+                        borderWidth: 1.5,
+                        borderDash: [4, 4],
+                        pointRadius: 0,
+                        fill: false,
+                        tension: 0.1
+                    },
+                    {
+                        label: 'Price Trend Vector',
+                        data: [2805, 2812, 2810, 2818, 2825, 2822, 2830, 2835, 2831, 2840, 2846, 2842, 2850, 2855, 2847],
+                        borderColor: '#4ade80',
+                        borderWidth: 2,
+                        pointBackgroundColor: '#4ade80',
+                        pointRadius: function(ctx) { return ctx.dataIndex === 14 ? 6 : 0; },
+                        fill: false,
+                        tension: 0.1
+                    }
+                ]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: { legend: { display: false } },
+                scales: {
+                    x: { grid: { color: '#24231e' }, ticks: { color: '#a09e95', font: { size: 9 } } },
+                    y: { position: 'right', min: 2790, max: 2875, grid: { color: '#24231e' }, ticks: { color: '#a09e95', font: { size: 9 } } }
+                }
+            }
+        });
+
+        // Trigger Event For Order Placed Confirmation Mock
+        function executeOrderNotify() {
+            alert("SYSTEM NOTIFICATION: Order instruction package dispatched over API routing lanes.");
+        }
+
+        // Emergency Liquidation Safety Routine Failure Recovery Loop
+        function triggerSystemicLiquidationSweep() {
+            const verificationState = confirm("CRITICAL INTERVENTION: Initiate master execution loop to clear and liquidate all active positions at market price immediately?");
+            if (verificationState) {
+                alert("SUCCESS: All open operations flattened cleanly. Zero risk asset balance verified.");
+            }
+        }
+    </script>
+</body>
+</html>
