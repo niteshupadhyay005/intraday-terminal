@@ -39,7 +39,7 @@
         </div>
         <div class="flex items-center gap-4">
             <span class="text-[#a09e95] font-bold" id="clock-display">00:00:00</span>
-            <span class="bg-[#132c1a] border border-[#224d2e] text-[#4ade80] px-2 py-0.5 rounded text-[10px] font-black tracking-wildest">LIVE QUANT MODE</span>
+            <span class="bg-[#132c1a] border border-[#224d2e] text-[#4ade80] px-2 py-0.5 rounded text-[10px] font-black tracking-widest">LIVE QUANT MODE</span>
         </div>
     </header>
 
@@ -254,7 +254,7 @@
     <script>
         lucide.createIcons();
 
-        // 1. ADDED COMPONENT: INTEGRATED LOCAL REGISTRY FOR INDIA'S TOP 10 LIQUID ASSETS
+        // INTEGRATED ONSITE DATA REGISTRY FOR THE TOP 10 INDIAN STOCKS
         const stockDatabase = {
             "RELIANCE": { fullName: "RELIANCE INDUSTRIES LIMITED", cmp: 2847.30, rsi: 58.40, qty: 35, entryPrice: 2810.15, chartSeed: [2810, 2818, 2814, 2825, 2831, 2826, 2832, 2839, 2834, 2842, 2846, 2841, 2845, 2849, 2847.30] },
             "TCS": { fullName: "TATA CONSULTANCY SERVICES LTD", cmp: 3950.25, rsi: 62.15, qty: 25, entryPrice: 3912.40, chartSeed: [3905, 3912, 3908, 3918, 3924, 3919, 3926, 3932, 3928, 3936, 3942, 3937, 3941, 3946, 3950.25] },
@@ -263,7 +263,7 @@
             "HDFCBANK": { fullName: "HDFC BANK LIMITED", cmp: 1623.38, rsi: 41.20, qty: 60, entryPrice: 1642.50, chartSeed: [1648, 1642, 1645, 1639, 1634, 1636, 1631, 1628, 1632, 1626, 1622, 1624, 1621, 1622, 1623.38] },
             "ICICIBANK": { fullName: "ICICI BANK LIMITED", cmp: 1145.50, rsi: 56.90, qty: 90, entryPrice: 1131.20, chartSeed: [1128, 1133, 1131, 1136, 1140, 1137, 1141, 1144, 1142, 1145, 1147, 1143, 1144, 1146, 1145.50] },
             "BHARTIARTL": { fullName: "BHARTI AIRTEL LIMITED", cmp: 1385.40, rsi: 59.10, qty: 70, entryPrice: 1362.40, chartSeed: [1358, 1364, 1362, 1368, 1372, 1369, 1374, 1379, 1376, 1381, 1384, 1380, 1382, 1385, 1385.40] },
-            "TATAMOTORS": { fullName: "TATA MOTORS LIMITED", cmp: 924.60, rsi: 61.30, qty: 110, entryPrice: 911.20, chartSeed: [908, 912, 910, 916, 919, 916, 921, 924, 922, 925, 927, 923, 924, 926, 924.60] },
+            "TATAMOTORS": { fullName: "TATA MOTORS LIMITED", cmp: 924.60, rsi: 61.30, qty: 110, entryPrice: 911.20, chartSeed: [908, 912, 910, 916, 919, 916, 921, 924, 922, 925, 923, 926, 928, 923, 924, 926, 924.60] },
             "AXISBANK": { fullName: "AXIS BANK LIMITED", cmp: 1089.20, rsi: 38.50, qty: 95, entryPrice: 1104.10, chartSeed: [1108, 1102, 1105, 1099, 1094, 1096, 1091, 1088, 1092, 1086, 1082, 1084, 1081, 1083, 1089.20] },
             "MARUTI": { fullName: "MARUTI SUZUKI INDIA LIMITED", cmp: 12450.00, rsi: 49.60, qty: 8, entryPrice: 12390.00, chartSeed: [12360, 12410, 12385, 12430, 12450, 12435, 12460, 12475, 12460, 12485, 12500, 12465, 12475, 12485, 12450.00] },
             "TATASTEEL": { fullName: "TATA STEEL LIMITED", cmp: 216.80, rsi: 55.40, qty: 450, entryPrice: 214.20, chartSeed: [214, 215.2, 214.8, 215.6, 216.1, 215.8, 216.4, 216.9, 216.5, 217.1, 217.5, 216.3, 216.6, 217.0, 216.80] },
@@ -303,7 +303,7 @@
             }
         });
 
-        // NEW LOCAL ACTION ROUTINE: RENDER CORE FEEDS INSTANTLY WITHOUT PROXY DELAYS
+        // HIGH FIDELITY LOCAL ACTIONS STREAM MANAGER
         function loadStockDataOnline(ticker) {
             const stock = stockDatabase[ticker];
             if (!stock) return;
@@ -355,7 +355,7 @@
             renderWatchlistFrame();
             processGlobalLedgerCalculations();
 
-            // Refresh central Line Graphs
+            // Refresh Line Graphs
             simulationChartEngine.data.datasets[0].data = stock.chartSeed;
             simulationChartEngine.data.datasets[1].data = stock.chartSeed.map((v, i) => v * (i % 2 === 0 ? 0.999 : 1.001));
             simulationChartEngine.data.datasets[0].borderColor = globalActiveSignalDirection === "BUY" ? "#4ade80" : "#f87171";
@@ -411,7 +411,7 @@
             });
         }
 
-        // ACCOUNT LEDGER MANAGEMENT CORE CHIPS: REFRESHEST NUMBERS RESPONSIBLY
+        // REWRITTEN ACCOUNT METHOD: REFRESHEST SYSTEM LEDGERS RE-REACTIVE DOWN PRICE SHIFTS
         function processGlobalLedgerCalculations() {
             const portfolioLedger = ["RELIANCE", "INFY", "HDFCBANK", "SBIN"];
             let totalAccumulatedOpenProfits = 0;
@@ -424,16 +424,15 @@
                     cmpValue = globalCalculatedCmp;
                 }
 
-                // Long calculation routing equation logic rules
                 let positionProfit = (cmpValue - stock.entryPrice) * stock.qty;
                 if(label === "HDFCBANK" || label === "AXISBANK") {
-                    positionProfit = (stock.entryPrice - cmpValue) * stock.qty; // Short positions math
+                    positionProfit = (stock.entryPrice - cmpValue) * stock.qty;
                 }
                 
                 totalAccumulatedOpenProfits += positionProfit;
             });
 
-            // Update Ledger Panel text rows
+            // Re-sync and update individual text display containers instantly
             const headerPnlNode = document.getElementById('top-panel-pnl');
             headerPnlNode.innerText = `${totalAccumulatedOpenProfits >= 0 ? '+' : ''}₹${totalAccumulatedOpenProfits.toLocaleString('en-IN', {maximumFractionDigits: 2})}`;
             headerPnlNode.className = `font-black ml-1 ${totalAccumulatedOpenProfits >= 0 ? 'text-[#4ade80] glow-green' : 'text-[#f87171] glow-red'}`;
@@ -446,7 +445,7 @@
             document.getElementById('bottom-drawdown').className = `font-black ${netDrawdownPercentage >= 0 ? 'text-[#4ade80]' : 'text-[#f87171]'}`;
         }
 
-        // DYNAMIC HIGH-SPEED ONSITE LOCAL LOOKUP SYSTEM
+        // ONSITE LOCAL SEARCH FILTER
         function filterStockSearchOnline() {
             const inputField = document.getElementById('stock-search-input');
             const searchDropdown = document.getElementById('search-results-dropdown');
@@ -485,7 +484,7 @@
             loadStockDataOnline(ticker);
         }
 
-        // LOCAL CORE SIMULATION HEARTBEAT: RUNS AUTOMATIC PRICE CHANGES UNDER 1.5 SECONDS
+        // REWRITTEN HIGH-SPEED VOLATILITY TEST TICK GENERATOR: SIMULATES CHANGES EVERY 1.5 SECONDS
         function activateLiveEngineSimulationTicks() {
             const stock = stockDatabase[currentLoadedTicker];
             const directionMultiplier = Math.random() > 0.48 ? 1 : -1;
@@ -505,10 +504,6 @@
                 document.getElementById('search-results-dropdown').classList.add('hidden');
             }
         });
-
-        function executeOrderNotify() {
-            alert("ALGORITHMIC NOTIFICATION: Position parameters packet verified. Trade order dispatched over API routing lanes.");
-        }
 
         window.onload = function() {
             loadStockDataOnline("RELIANCE");
