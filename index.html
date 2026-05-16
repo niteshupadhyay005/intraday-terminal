@@ -38,15 +38,15 @@
 
     <main class="flex-1 flex gap-2 min-h-0">
         
-        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-3 min-h-0">
+        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-3 min-h-0 relative">
             
-            <div class="flex flex-col gap-1 relative">
+            <div class="flex flex-col gap-1 relative z-50">
                 <label class="text-[10px] text-[#a09e95] font-bold tracking-wider">SEARCH INSTRUMENT MODULE</label>
                 <div class="flex items-center bg-[#12110e] border border-[#383630] rounded px-2 py-1.5 focus-within:border-[#3182ce]">
                     <i data-lucide="search" class="w-3.5 h-3.5 text-[#a09e95] mr-2"></i>
                     <input type="text" id="stock-search-input" placeholder="Type Ticker (e.g. TATA, INFY, SBIN)..." class="bg-transparent text-xs text-white outline-none w-full placeholder-[#5a5850]" oninput="filterStockSearch()">
                 </div>
-                <div id="search-results-dropdown" class="absolute top-[48px] left-0 right-0 bg-[#1c1b17] border border-[#383630] rounded shadow-2xl z-50 max-h-48 overflow-y-auto custom-scroll hidden">
+                <div id="search-results-dropdown" class="absolute top-[48px] left-0 right-0 bg-[#1c1b17] border border-[#383630] rounded shadow-2xl max-h-48 overflow-y-auto custom-scroll hidden">
                     </div>
             </div>
 
@@ -180,7 +180,7 @@
     </footer>
 
     <script>
-        // Static Core Dataset for Offline Functionality
+        // Static Comprehensive Dataset for Suggestion Engine Matching
         const stockDatabase = {
             "RELIANCE": { cmp: 2847.30, pct: "+1.4%", target: 2871.50, sl: 2835.20, diffTarget: "+₹24.20", diffSl: "-₹12.10", qty: 35, signal: "BUY", chartData: [2805, 2812, 2810, 2818, 2825, 2822, 2830, 2835, 2831, 2840, 2846, 2842, 2850, 2855, 2847] },
             "HDFCBANK": { cmp: 1623.38, pct: "-0.8%", target: 1642.00, sl: 1611.50, diffTarget: "+₹18.62", diffSl: "-₹11.88", qty: 60, signal: "BUY", chartData: [1640, 1638, 1635, 1633, 1630, 1628, 1629, 1625, 1622, 1626, 1624, 1620, 1621, 1625, 1623.38] },
@@ -193,9 +193,10 @@
             "TCS": { cmp: 3950.00, pct: "+0.5%", target: 3995.00, sl: 3910.00, diffTarget: "+₹45.00", diffSl: "-₹40.00", qty: 25, signal: "BUY", chartData: [3930, 3940, 3935, 3945, 3950, 3942, 3955, 3960, 3952, 3965, 3970, 3962, 3968, 3972, 3950.00] }
         };
 
+        // Render Lucide System Vector Icons Layout
         lucide.createIcons();
 
-        // System synchronized clock ticker
+        // High-precision clock ticker component
         function runSystemClockTicker() {
             const timeObject = new Date();
             document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
@@ -203,7 +204,7 @@
         setInterval(runSystemClockTicker, 1000);
         runSystemClockTicker();
 
-        // Initialize Primary Chart Component
+        // Configure Base Technical Chart Layer
         const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
         let simulationChartEngine = new Chart(UI_Canvas_Node, {
             type: 'line',
@@ -241,32 +242,31 @@
             }
         });
 
-        // Main Core Data Loading Engine Logic
+        // Main Core Dataset Selection Loader Engine
         function loadStockData(ticker) {
             const stock = stockDatabase[ticker];
             if (!stock) return;
 
-            // UI Label Refresher Elements
+            // Remap labels inside UI container nodes
             document.getElementById('active-ticker-name').innerText = ticker;
             document.getElementById('active-ticker-cmp').innerText = `Live CMP: ${stock.cmp.toFixed(2)}`;
             
-            // Exit Prompt Banner Metric Remapper
+            // Re-sync Same-Screen Exit Alert Fields
             document.getElementById('exit-target-price').innerText = `₹${stock.target.toFixed(2)}`;
             document.getElementById('exit-target-diff').innerText = `TARGET GAIN: ${stock.diffTarget} (1:2.4 R:R)`;
             document.getElementById('exit-stoploss-price').innerText = `₹${stock.sl.toFixed(2)}`;
             document.getElementById('exit-stoploss-diff').innerText = `MAX RISK: ${stock.diffSl} (ATR x 1.0)`;
 
-            // Execution Module Remapper
+            // Sync Right side order confirmation blocks
             document.getElementById('execution-panel-signal').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: ${stock.signal} ${ticker}`;
             document.getElementById('exec-trigger-price').innerText = `₹${stock.cmp.toFixed(2)}`;
             document.getElementById('exec-calculated-qty').innerText = `${stock.qty} Shares`;
 
-            // Dynamic Chart Boundary Calibrator
+            // Clear and update the technical chart array values
             simulationChartEngine.data.datasets[1].data = stock.chartData;
-            // Generate basic custom dynamic offset curve for the VWAP channel layer
-            simulationChartEngine.data.datasets[0].data = stock.chartData.map(val => val * 0.998);
+            simulationChartEngine.data.datasets[0].data = stock.chartData.map(val => val * 0.998); // Synthetic indicator baseline
             
-            // Recalculate layout scales dynamically
+            // Calibrate min/max boundary constraints to fit data neatly on grid
             const minVal = Math.min(...stock.chartData) * 0.99;
             const maxVal = Math.max(...stock.chartData) * 1.01;
             simulationChartEngine.options.scales.y.min = minVal;
@@ -275,14 +275,14 @@
             simulationChartEngine.update();
             lucide.createIcons();
 
-            // Auto-collapse Search Drawer on pick
+            // Reset input values and clean up dropdown tracking boxes
             document.getElementById('search-results-dropdown').classList.add('hidden');
             document.getElementById('stock-search-input').value = "";
             
             renderWatchlist(ticker);
         }
 
-        // Render Sidebar Component Items
+        // Render Watchlist Sidebar Array Components
         function renderWatchlist(activeTicker = "RELIANCE") {
             const container = document.getElementById('watchlist-container');
             container.innerHTML = "";
@@ -303,39 +303,43 @@
             });
         }
 
-        // Interactive Live Query Search Filter System
+        // REWRITTEN HIGH-SPEED LIVE KEYSTROKE DISPLAY ENGINE
         function filterStockSearch() {
             const inputField = document.getElementById('stock-search-input');
             const searchDropdown = document.getElementById('search-results-dropdown');
             const userQuery = inputField.value.trim().toUpperCase();
 
+            // Collapse search panel if empty
             if (userQuery === "") {
                 searchDropdown.classList.add('hidden');
                 return;
             }
 
+            // Loop through internal system database to verify matches
             const matchedStocks = Object.keys(stockDatabase).filter(ticker => ticker.includes(userQuery));
 
             if (matchedStocks.length === 0) {
-                searchDropdown.innerHTML = `<div class="p-2 text-xs text-[#a09e95]">No corresponding tickers matched</div>`;
+                searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching tickers found</div>`;
             } else {
                 searchDropdown.innerHTML = "";
+                // Generate suggestion rows immediately
                 matchedStocks.forEach(ticker => {
                     const data = stockDatabase[ticker];
                     const trackingColor = data.pct.includes('+') ? 'text-[#4ade80]' : 'text-[#f87171]';
                     
                     searchDropdown.innerHTML += `
-                        <div class="flex justify-between p-2.5 text-xs hover:bg-[#24231e] cursor-pointer transition-colors border-b border-[#2d2b24]" onclick="loadStockData('${ticker}')">
-                            <span class="font-bold text-white">${ticker}</span>
-                            <span class="${trackingColor}">${data.cmp.toFixed(2)} (${data.pct})</span>
+                        <div class="flex justify-between p-3 text-xs hover:bg-[#24231e] cursor-pointer transition-colors border-b border-[#2d2b24]" onclick="loadStockData('${ticker}')">
+                            <span class="font-bold text-white tracking-wide">${ticker}</span>
+                            <span class="${trackingColor} font-sans">${data.cmp.toFixed(2)} (${data.pct})</span>
                         </div>
                     `;
                 });
             }
+            // Remove hidden tracking constraint class
             searchDropdown.classList.remove('hidden');
         }
 
-        // Hide query drawer when clicking elsewhere on interface canvas area
+        // Collapse search results box automatically when user clicks anywhere else
         document.addEventListener('click', function(e) {
             const containerBox = document.getElementById('stock-search-input').parentElement.parentElement;
             if (!containerBox.contains(e.target)) {
@@ -356,7 +360,7 @@
             }
         }
 
-        // Initialize Default View Node State on Startup Sequence Loop
+        // Setup base state execution sequence upon frame initialization
         window.onload = function() {
             loadStockData("RELIANCE");
         };
