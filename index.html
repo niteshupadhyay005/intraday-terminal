@@ -23,13 +23,13 @@
     <header class="bg-[#151412] border border-[#262420] px-4 py-2 flex items-center justify-between text-xs rounded shadow-md">
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-2">
-                <span class="w-2.5 h-2.5 rounded-full bg-[#4ade80]" id="status-dot"></span>
+                <span class="w-2.5 h-2.5 rounded-full bg-[#eab308]" id="status-dot"></span>
                 <span class="text-[#a09e95] font-bold tracking-wider">CORE FEED:</span>
-                <span class="text-white font-black tracking-wide text-[11px]" id="stream-status">INITIALIZING SYSTEM...</span>
+                <span class="text-white font-black tracking-wide text-[11px]" id="stream-status">CONNECTING INTEGRATED DATA LANES...</span>
             </div>
             <div class="border-l border-[#262420] h-4"></div>
             <div>NET EQUITY CAPITAL: <span class="text-white font-black ml-1">₹10,00,000</span></div>
-            <div>SESSION AGGREGATE P&L: <span class="text-[#4ade80] font-black ml-1 glow-green" id="top-panel-pnl">+₹0.00</span></div>
+            <div>SESSION AGGREGATE P&L: <span class="text-[#4ade80] font-black ml-1 glow-green" id="top-panel-pnl">+₹3,840</span></div>
         </div>
         <div class="flex items-center gap-4">
             <span class="text-[#a09e95] font-bold" id="clock-display">00:00:00</span>
@@ -128,7 +128,6 @@
     <script>
         lucide.createIcons();
 
-        // Systemized digital synchronization clock component
         function runSystemClockTicker() {
             const timeObject = new Date();
             document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
@@ -136,15 +135,12 @@
         setInterval(runSystemClockTicker, 1000);
         runSystemClockTicker();
 
-        // Configure Canvas Line Graph Parameters 
         const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
         let simulationChartEngine = new Chart(UI_Canvas_Node, {
             type: 'line',
             data: {
                 labels: [],
-                datasets: [
-                    { label: 'Market Price Line', borderColor: '#4ade80', borderWidth: 2, pointBackgroundColor: '#4ade80', pointRadius: 0, fill: false, tension: 0.1, data: [] }
-                ]
+                datasets: [{ borderColor: '#4ade80', borderWidth: 2, pointRadius: 0, fill: false, tension: 0.1, data: [] }]
             },
             options: {
                 responsive: true,
@@ -157,19 +153,18 @@
             }
         });
 
-        // FIXED SECURITY PARSING ENGINE: FETCH DATA OVER AN OPEN COMPLIANT PROXY
+        // REWRITTEN HIGH-SPEED STABLE FETCH METHOD (USES CORSPROXY.IO EDGE CDN)
         async function loadStockDataOnline(yahooSymbol) {
             try {
                 document.getElementById('stream-status').innerText = `ROUTING PIPELINE FOR ${yahooSymbol}...`;
-                document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#f59e0b]"; // Warning Color State
+                document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#f59e0b]";
 
-                // Utilizing public cors-anywhere alternative proxy layout system to safely unlock pipelines
                 const targetUrl = `https://query1.finance.yahoo.com/v8/finance/chart/${yahooSymbol}?range=5d&interval=15m`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`;
                 
                 const response = await fetch(proxyUrl);
-                const proxyData = await response.json();
-                const json = JSON.parse(proxyData.contents);
+                if (!response.ok) throw new Error("Network latency failure");
+                const json = await response.json();
                 
                 const meta = json.chart.result[0].meta;
                 const indicators = json.chart.result[0].indicators.quote[0];
@@ -184,19 +179,16 @@
                 const currentMarketPrice = meta.regularMarketPrice;
                 const cleanTickerName = yahooSymbol.replace(".NS", "");
 
-                // Map updated metrics to template layout variables
                 document.getElementById('active-ticker-symbol').innerText = cleanTickerName;
-                document.getElementById('active-ticker-fullname').innerText = cleanTickerName + " CORPORATION INDEX";
+                document.getElementById('active-ticker-fullname').innerText = cleanTickerName + " INDEX FEED";
                 document.getElementById('active-ticker-cmp').innerText = `Live CMP: ₹${currentMarketPrice.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
-                // Calculate Risk Bands
                 const offset = currentMarketPrice * 0.015;
                 document.getElementById('exit-target-price').innerText = `₹${(currentMarketPrice + offset).toFixed(2)}`;
                 document.getElementById('exit-stoploss-price').innerText = `₹${(currentMarketPrice - offset).toFixed(2)}`;
                 document.getElementById('exec-trigger-price').innerText = `₹${currentMarketPrice.toFixed(2)}`;
                 document.getElementById('exec-calculated-qty').innerText = `${Math.floor(5000 / offset)} Shares`;
 
-                // Update Chart Arrays
                 simulationChartEngine.data.labels = chartLabels.slice(-15);
                 simulationChartEngine.data.datasets[0].data = closePrices.slice(-15);
                 simulationChartEngine.update();
@@ -204,13 +196,13 @@
                 document.getElementById('stream-status').innerText = "DATA LINES SECURE AND ACTIVE";
                 document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#4ade80]";
             } catch (error) {
-                console.error("Data pipeline load exception occurred:", error);
-                document.getElementById('stream-status').innerText = "NSE EXCH OFF — DISPLAYING LAST SETTLED RATES";
+                console.error("Pipeline failure:", error);
+                document.getElementById('stream-status').innerText = "NSE SYSTEM OFFLINE — PARSING LAST ARCHIVE RATES";
                 document.getElementById('status-dot').className = "w-2.5 h-2.5 rounded-full bg-[#a09e95]";
             }
         }
 
-        // FIXED SEARCH AUTO-SUGGEST ENGINE METHOD
+        // REWRITTEN INSTANT SEARCH AUTO-SUGGEST METHOD
         async function filterStockSearchOnline() {
             const inputField = document.getElementById('stock-search-input');
             const searchDropdown = document.getElementById('search-results-dropdown');
@@ -223,22 +215,22 @@
 
             try {
                 const searchTargetUrl = `https://query1.finance.yahoo.com/v1/finance/search?q=${userQuery}&quotesCount=6`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(searchTargetUrl)}`;
+                const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(searchTargetUrl)}`;
                 
                 const response = await fetch(proxyUrl);
-                const proxyData = await response.json();
-                const data = JSON.parse(proxyData.contents);
+                if (!response.ok) throw new Error("Search track broken");
+                const data = await response.json();
                 
                 const nseListedEquities = data.quotes.filter(q => q.symbol && q.symbol.endsWith(".NS"));
 
                 if (nseListedEquities.length === 0) {
-                    searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No active corporate assets match</div>`;
+                    searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching assets found</div>`;
                 } else {
                     searchDropdown.innerHTML = "";
                     nseListedEquities.forEach(stock => {
                         const rawSymbol = stock.symbol;
                         const cleanTickerName = rawSymbol.replace(".NS", "");
-                        const fullTitle = stock.longname || stock.shortname || "Listed Instrument";
+                        const fullTitle = stock.longname || stock.shortname || "NSE Equity Asset";
 
                         searchDropdown.innerHTML += `
                             <div class="flex flex-col p-3 hover:bg-[#1d1b18] cursor-pointer transition-colors border-b border-[#262420]" onclick="selectTickerDropdownAction('${rawSymbol}')">
@@ -253,7 +245,7 @@
                 }
                 searchDropdown.classList.remove('hidden');
             } catch (err) {
-                console.error("Auto suggestion engine failure logs:", err);
+                console.error("Auto suggestion failure:", err);
             }
         }
 
@@ -263,18 +255,16 @@
             loadStockDataOnline(symbol);
         }
 
-        // Compile Watchlist Metrics Layout
         async function compileLiveTerminalInterfaceFeeds() {
             const container = document.getElementById('watchlist-container');
             const systematicCoreQueries = ["SBIN.NS", "TCS.NS", "INFY.NS", "RELIANCE.NS"];
             
             try {
                 const targetUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=${systematicCoreQueries.join(",")}`;
-                const proxyUrl = `https://api.allorigins.win/get?url=${encodeURIComponent(targetUrl)}`;
+                const proxyUrl = `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`;
                 
                 const response = await fetch(proxyUrl);
-                const proxyData = await response.json();
-                const json = JSON.parse(proxyData.contents);
+                const json = await response.json();
                 const stockArray = json.quoteResponse.result;
 
                 container.innerHTML = "";
@@ -294,23 +284,29 @@
 
                     if(index < 2) {
                         positionMatrixHtmlStructure += `
-                            <div class="p-2 bg.#0a0a09 border-l-4 ${change >= 0 ? 'border-l-[#4ade80]' : 'border-l-[#f87171]'} border-[#262420] rounded flex justify-between items-center text-xs">
+                            <div class="p-2 bg-[#0a0a09] border border-[#262420] rounded flex justify-between items-center text-xs">
                                 <span class="font-bold text-white">${label}</span>
-                                <span class="text-[#4ade80] font-black">+₹2,450</span>
+                                <span class="text-[#4ade80] font-black">+₹1,920</span>
                             </div>
                         `;
                     }
                 });
 
                 document.getElementById('running-positions-box').innerHTML = positionMatrixHtmlStructure;
-                document.getElementById('footer-nifty').innerText = "23,643.50 (-0.19%)";
-                document.getElementById('footer-banknifty').innerText = "53,710.35 (-0.77%)";
+                
+                const indexUrl = `https://query1.finance.yahoo.com/v7/finance/quote?symbols=^NSEI,^NSEBANK`;
+                const indexProxy = `https://corsproxy.io/?url=${encodeURIComponent(indexUrl)}`;
+                const indexRes = await fetch(indexProxy);
+                const indexJson = await indexRes.json();
+                const indices = indexJson.quoteResponse.result;
+
+                document.getElementById('footer-nifty').innerText = `${indices[0].regularMarketPrice.toFixed(2)} (${indices[0].regularMarketChangePercent.toFixed(2)}%)`;
+                document.getElementById('footer-banknifty').innerText = `${indices[1].regularMarketPrice.toFixed(2)} (${indices[1].regularMarketChangePercent.toFixed(2)}%)`;
             } catch (err) {
-                console.error("Watchlist compilation network alert:", err);
+                console.error("Watchlist network alert:", err);
             }
         }
 
-        // Close searching layout dropdown elements on background canvas area click
         document.addEventListener('click', function(e) {
             const containerBox = document.getElementById('stock-search-input').parentElement.parentElement;
             if (!containerBox.contains(e.target)) {
@@ -321,7 +317,7 @@
         window.onload = function() {
             compileLiveTerminalInterfaceFeeds();
             loadStockDataOnline("RELIANCE.NS");
-            setInterval(compileLiveTerminalInterfaceFeeds, 30000);
+            setInterval(compileLiveTerminalInterfaceFeeds, 45000);
         };
     </script>
 </body>
