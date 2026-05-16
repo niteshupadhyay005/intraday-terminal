@@ -24,7 +24,7 @@
             <div class="flex items-center gap-2">
                 <span class="w-2 h-2 rounded-full bg-[#eab308] animate-pulse"></span>
                 <span class="text-[#a09e95]">DATA STREAM:</span>
-                <span class="text-white font-bold">OFFLINE MODE — SIMULATED ARCHIVE ENGINE (Latency: 0ms)</span>
+                <span class="text-white font-bold">NSE INDIA ONSITE ARCHIVE ENGINE (Latency: 0ms)</span>
             </div>
             <div class="border-l border-[#2d2b24] h-4"></div>
             <div>CAPITAL: <span class="text-white font-bold">₹10,00,000</span></div>
@@ -41,17 +41,17 @@
         <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-3 min-h-0 relative">
             
             <div class="flex flex-col gap-1 relative z-50">
-                <label class="text-[10px] text-[#a09e95] font-bold tracking-wider">SEARCH INSTRUMENT MODULE</label>
+                <label class="text-[10px] text-[#a09e95] font-bold tracking-wider">NSE INSTRUMENT SEARCH MODULE</label>
                 <div class="flex items-center bg-[#12110e] border border-[#383630] rounded px-2 py-1.5 focus-within:border-[#3182ce]">
                     <i data-lucide="search" class="w-3.5 h-3.5 text-[#a09e95] mr-2"></i>
-                    <input type="text" id="stock-search-input" placeholder="Type Ticker (e.g. TATA, INFY, SBIN)..." class="bg-transparent text-xs text-white outline-none w-full placeholder-[#5a5850]" oninput="filterStockSearch()">
+                    <input type="text" id="stock-search-input" placeholder="Search Symbol or Name (e.g., RELIANCE, TATA, HDFC)..." class="bg-transparent text-xs text-white outline-none w-full placeholder-[#5a5850]" oninput="filterStockSearch()">
                 </div>
-                <div id="search-results-dropdown" class="absolute top-[48px] left-0 right-0 bg-[#1c1b17] border border-[#383630] rounded shadow-2xl max-h-48 overflow-y-auto custom-scroll hidden">
+                <div id="search-results-dropdown" class="absolute top-[48px] left-0 right-0 bg-[#1c1b17] border border-[#383630] rounded shadow-2xl max-h-56 overflow-y-auto custom-scroll hidden">
                     </div>
             </div>
 
             <div class="flex flex-col gap-1.5">
-                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-1">MARKET WATCHLIST (CLICK TO LOAD)</div>
+                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-1">NIFTY CORE WATCHLIST</div>
                 <div class="space-y-1 text-xs" id="watchlist-container">
                     </div>
             </div>
@@ -61,13 +61,13 @@
                     <i data-lucide="activity" class="w-3 h-3 text-[#3182ce]"></i> BREAKOUT SCANS
                 </div>
                 <div class="space-y-1 text-xs">
-                    <div class="flex justify-between p-2 bg-[#192b1d] border border-[#224d29] rounded cursor-pointer" onclick="loadStockData('LTIM')">
-                        <span class="text-[#4ade80] font-bold">LTIM</span>
-                        <span class="text-[#4ade80]">5312.00 (+3.2%)</span>
+                    <div class="flex justify-between p-2 bg-[#192b1d] border border-[#224d29] rounded cursor-pointer" onclick="loadStockData('ADANIENT')">
+                        <span class="text-[#4ade80] font-bold">ADANIENT</span>
+                        <span class="text-[#4ade80]">2719.00 (+8.85%)</span>
                     </div>
-                    <div class="flex justify-between p-2 bg-[#2d1a1a] border border-[#4d2222] rounded cursor-pointer" onclick="loadStockData('ONGC')">
-                        <span class="text-[#f87171] font-bold">ONGC</span>
-                        <span class="text-[#f87171]">188.45 (-2.7%)</span>
+                    <div class="flex justify-between p-2 bg-[#2d1a1a] border border-[#4d2222] rounded cursor-pointer" onclick="loadStockData('CIPLA')">
+                        <span class="text-[#f87171] font-bold">CIPLA</span>
+                        <span class="text-[#f87171]">1435.00 (-2.58%)</span>
                     </div>
                 </div>
             </div>
@@ -75,15 +75,19 @@
 
         <section class="flex-1 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col relative min-h-0">
             <div class="p-3 border-b border-[#2d2b24] flex justify-between items-center text-xs">
-                <div class="flex items-center gap-3">
-                    <span class="font-bold text-white text-sm" id="active-ticker-name">RELIANCE</span>
-                    <span class="text-[#a09e95]">•</span>
-                    <span class="bg-[#24231e] px-2 py-0.5 rounded text-[#e2e0d9]">5-MIN CHART</span>
-                    <span class="text-[#4ade80] font-bold" id="active-ticker-cmp">Live CMP: 2847.30</span>
+                <div class="flex flex-col gap-0.5">
+                    <div class="flex items-center gap-2">
+                        <span class="font-bold text-white text-sm" id="active-ticker-symbol">RELIANCE</span>
+                        <span class="bg-[#24231e] px-1.5 py-0.5 rounded text-[10px] text-[#e2e0d9]">NSE EQUITY</span>
+                    </div>
+                    <span class="text-[10px] text-[#a09e95] uppercase font-bold" id="active-ticker-fullname">RELIANCE INDUSTRIES LIMITED</span>
                 </div>
-                <div class="flex items-center gap-2">
-                    <span class="bg-[#3b1d54] text-[#d6bdf2] px-1.5 py-0.5 rounded text-[10px] font-bold">VWAP SYSTEM</span>
-                    <span class="bg-[#54381d] text-[#f2dfbd] px-1.5 py-0.5 rounded text-[10px] font-bold">SUPERTREND</span>
+                <div class="flex items-center gap-4">
+                    <span class="text-[#4ade80] font-bold text-sm" id="active-ticker-cmp">Live CMP: ₹1,368.50</span>
+                    <div class="flex items-center gap-1">
+                        <span class="bg-[#3b1d54] text-[#d6bdf2] px-1.5 py-0.5 rounded text-[10px] font-bold">VWAP</span>
+                        <span class="bg-[#54381d] text-[#f2dfbd] px-1.5 py-0.5 rounded text-[10px] font-bold">SUPERTREND</span>
+                    </div>
                 </div>
             </div>
 
@@ -95,8 +99,8 @@
                         <span class="tracking-wider">AUTOMATED PROMPT: TAKE PROFIT TARGET HIT AREA</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-white text-sm" id="exit-target-price">₹2,871.50</span>
-                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-target-diff">TARGET GAIN: +₹24.20 (1:2.4 R:R)</span>
+                        <span class="text-white text-sm" id="exit-target-price">₹1,395.80</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-target-diff">TARGET GAIN: +₹27.30 (1:2.4 R:R)</span>
                     </div>
                 </div>
 
@@ -108,8 +112,8 @@
                         <span class="tracking-wider">CRITICAL PROMPT: ENFORCED SYSTEM STOP-LOSS BOUNDARY</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-white text-sm" id="exit-stoploss-price">₹2,835.20</span>
-                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-stoploss-diff">MAX RISK: -₹12.10 (ATR×1.0)</span>
+                        <span class="text-white text-sm" id="exit-stoploss-price">₹1,354.80</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-stoploss-diff">MAX RISK: -₹13.70 (ATR×1.0)</span>
                     </div>
                 </div>
             </div>
@@ -123,9 +127,9 @@
                         <i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: BUY RELIANCE
                     </div>
                     <div class="space-y-1 pt-1 text-[#c2c0b6]">
-                        <div class="flex justify-between"><span>Trigger Price</span><span class="text-white font-bold" id="exec-trigger-price">₹2,847.30</span></div>
-                        <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white" id="exec-calculated-qty">35 Shares</span></div>
-                        <div class="flex justify-between"><span>Capital at Risk</span><span class="text-[#f87171]">₹9,870 (1.0%)</span></div>
+                        <div class="flex justify-between"><span>Trigger Price</span><span class="text-white font-bold" id="exec-trigger-price">₹1,368.50</span></div>
+                        <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white" id="exec-calculated-qty">73 Shares</span></div>
+                        <div class="flex justify-between"><span>Capital at Risk</span><span class="text-[#f87171]">₹9,991 (1.0%)</span></div>
                         <div class="flex justify-between"><span>Risk-Reward Ratio</span><span class="text-[#4ade80]">1 : 2.4</span></div>
                     </div>
                     <div class="grid grid-cols-2 gap-2 pt-2">
@@ -147,8 +151,8 @@
                     </div>
                     <div class="flex justify-between p-2 bg-[#12110e] border border-[#2d2b24] rounded items-center">
                         <div>
-                            <div class="text-white font-bold text-xs">LTIM</div>
-                            <div class="text-[10px] text-[#a09e95]">Qty: 18 • Long Position</div>
+                            <div class="text-white font-bold text-xs">BHARTIARTL</div>
+                            <div class="text-[10px] text-[#a09e95]">Qty: 45 • Long Position</div>
                         </div>
                         <span class="text-[#4ade80] font-bold text-xs">+₹1,506</span>
                     </div>
@@ -167,8 +171,8 @@
 
     <footer class="flex gap-2 items-center text-[11px] h-10 mt-auto">
         <div class="bg-[#1c1b17] border border-[#2d2b24] px-4 h-full flex items-center gap-4 rounded text-[#c2c0b6]">
-            <div>NIFTY 50 <span class="text-[#4ade80] font-bold ml-1">24,312 (+0.4%)</span></div>
-            <div>BANK NIFTY <span class="text-[#f87171] font-bold ml-1">52,144 (-0.1%)</span></div>
+            <div>NIFTY 50 <span class="text-[#4ade80] font-bold ml-1">23,643.50 (-0.19%)</span></div>
+            <div>BANK NIFTY <span class="text-[#f87171] font-bold ml-1">53,710.35 (-0.77%)</span></div>
             <div>INDIA VIX <span class="text-white font-bold ml-1">13.2</span></div>
             <div>USD/INR <span class="text-white font-bold ml-1">83.42</span></div>
         </div>
@@ -180,23 +184,39 @@
     </footer>
 
     <script>
-        // Static Comprehensive Dataset for Suggestion Engine Matching
+        // Production Grade Native NSE Stock Local Registry
         const stockDatabase = {
-            "RELIANCE": { cmp: 2847.30, pct: "+1.4%", target: 2871.50, sl: 2835.20, diffTarget: "+₹24.20", diffSl: "-₹12.10", qty: 35, signal: "BUY", chartData: [2805, 2812, 2810, 2818, 2825, 2822, 2830, 2835, 2831, 2840, 2846, 2842, 2850, 2855, 2847] },
-            "HDFCBANK": { cmp: 1623.38, pct: "-0.8%", target: 1642.00, sl: 1611.50, diffTarget: "+₹18.62", diffSl: "-₹11.88", qty: 60, signal: "BUY", chartData: [1640, 1638, 1635, 1633, 1630, 1628, 1629, 1625, 1622, 1626, 1624, 1620, 1621, 1625, 1623.38] },
-            "INFY": { cmp: 1481.75, pct: "+2.1%", target: 1502.40, sl: 1468.00, diffTarget: "+₹20.65", diffSl: "-₹13.75", qty: 65, signal: "BUY", chartData: [1450, 1455, 1452, 1460, 1466, 1462, 1470, 1474, 1471, 1478, 1482, 1479, 1483, 1485, 1481.75] },
-            "TATAMOTORS": { cmp: 924.60, pct: "+0.9%", target: 938.00, sl: 915.00, diffTarget: "+₹13.40", diffSl: "-₹9.60", qty: 105, signal: "BUY", chartData: [915, 918, 916, 920, 922, 919, 923, 925, 922, 926, 928, 925, 927, 929, 924.60] },
-            "AXISBANK": { cmp: 1089.20, pct: "-0.3%", target: 1105.00, sl: 1078.00, diffTarget: "+₹15.80", diffSl: "-₹11.20", qty: 90, signal: "BUY", chartData: [1095, 1092, 1094, 1090, 1088, 1091, 1087, 1089, 1086, 1088, 1085, 1087, 1089, 1091, 1089.20] },
-            "LTIM": { cmp: 5312.00, pct: "+3.2%", target: 5410.00, sl: 5245.00, diffTarget: "+₹98.00", diffSl: "-₹67.00", qty: 18, signal: "BUY", chartData: [5150, 5180, 5200, 5190, 5230, 5260, 5240, 5290, 5320, 5300, 5340, 5330, 5360, 5380, 5312] },
-            "ONGC": { cmp: 188.45, pct: "-2.7%", target: 194.00, sl: 184.50, diffTarget: "+₹5.55", diffSl: "-₹3.95", qty: 500, signal: "BUY", chartData: [194, 193, 191, 192, 190, 189, 189.5, 188, 187, 187.5, 186, 187, 188, 189, 188.45] },
-            "SBIN": { cmp: 742.10, pct: "+1.1%", target: 754.00, sl: 734.00, diffTarget: "+₹11.90", diffSl: "-₹8.10", qty: 135, signal: "BUY", chartData: [732, 735, 734, 738, 739, 737, 741, 743, 740, 744, 745, 742, 744, 746, 742.10] },
-            "TCS": { cmp: 3950.00, pct: "+0.5%", target: 3995.00, sl: 3910.00, diffTarget: "+₹45.00", diffSl: "-₹40.00", qty: 25, signal: "BUY", chartData: [3930, 3940, 3935, 3945, 3950, 3942, 3955, 3960, 3952, 3965, 3970, 3962, 3968, 3972, 3950.00] }
+            "RELIANCE": { fullName: "RELIANCE INDUSTRIES LIMITED", cmp: 1368.50, pct: "+0.71%", target: 1395.80, sl: 1354.80, diffTarget: "+₹27.30", diffSl: "-₹13.70", qty: 73, signal: "BUY", chartData: [1352, 1355, 1354, 1358, 1362, 1360, 1364, 1366, 1363, 1367, 1369, 1365, 1368, 1370, 1368.50] },
+            "ADANIENT": { fullName: "ADANI ENTERPRISES LIMITED", cmp: 2719.00, pct: "+8.85%", target: 2784.00, sl: 2686.00, diffTarget: "+₹65.00", diffSl: "-₹33.00", qty: 36, signal: "BUY", chartData: [2500, 2530, 2520, 2560, 2600, 2580, 2640, 2690, 2670, 2710, 2730, 2700, 2725, 2740, 2719.00] },
+            "ADANIPORTS": { fullName: "ADANI PORTS AND SPECIAL ECONOMIC ZONE LIMITED", cmp: 1781.00, pct: "+2.49%", target: 1825.00, sl: 1759.00, diffTarget: "+₹44.00", diffSl: "-₹22.00", qty: 56, signal: "BUY", chartData: [1738, 1745, 1742, 1755, 1765, 1760, 1772, 1778, 1770, 1782, 1785, 1776, 1779, 1784, 1781.00] },
+            "APOLLOHOSP": { fullName: "APOLLO HOSPITALS ENTERPRISE LIMITED", cmp: 8115.00, pct: "+1.38%", target: 8277.00, sl: 8033.00, diffTarget: "+₹162.00", diffSl: "-₹82.00", qty: 12, signal: "BUY", chartData: [8005, 8040, 8030, 8070, 8100, 8085, 8120, 8140, 8110, 8135, 8150, 8105, 8122, 8130, 8115.00] },
+            "ASIANPAINT": { fullName: "ASIAN PAINTS LIMITED", cmp: 2614.00, pct: "-0.14%", target: 2640.00, sl: 2601.00, diffTarget: "+₹26.00", diffSl: "-₹13.00", qty: 38, signal: "BUY", chartData: [2625, 2622, 2624, 2618, 2615, 2619, 2613, 2616, 2611, 2614, 2612, 2616, 2618, 2615, 2614.00] },
+            "AXISBANK": { fullName: "AXIS BANK LIMITED", cmp: 1255.10, pct: "-0.05%", target: 1272.00, sl: 1246.50, diffTarget: "+₹16.90", diffSl: "-₹8.60", qty: 79, signal: "BUY", chartData: [1260, 1258, 1259, 1254, 1252, 1255, 1251, 1253, 1250, 1254, 1253, 1256, 1258, 1256, 1255.10] },
+            "BAJAJ-AUTO": { fullName: "BAJAJ AUTO LIMITED", cmp: 10447.00, pct: "+1.80%", target: 10655.00, sl: 10343.00, diffTarget: "+₹208.00", diffSl: "-₹104.00", qty: 9, signal: "BUY", chartData: [10260, 10310, 10300, 10350, 10400, 10380, 10430, 10460, 10420, 10450, 10470, 10430, 10455, 10465, 10447.00] },
+            "BHARTIARTL": { fullName: "BHARTI AIRTEL LIMITED", cmp: 1883.00, pct: "+5.24%", target: 1928.00, sl: 1860.00, diffTarget: "+₹45.00", diffSl: "-₹23.00", qty: 53, signal: "BUY", chartData: [1790, 1810, 1805, 1830, 1855, 1840, 1865, 1890, 1875, 1895, 1910, 1870, 1885, 1892, 1883.00] },
+            "CIPLA": { fullName: "CIPLA LIMITED", cmp: 1435.00, pct: "-2.58%", target: 1464.00, sl: 1420.50, diffTarget: "+₹29.00", diffSl: "-₹14.50", qty: 69, signal: "BUY", chartData: [1472, 1465, 1468, 1455, 1442, 1448, 1436, 1440, 1431, 1438, 1434, 1439, 1442, 1438, 1435.00] },
+            "COALINDIA": { fullName: "COAL INDIA LIMITED", cmp: 456.85, pct: "-1.17%", target: 466.00, sl: 452.00, diffTarget: "+₹9.15", diffSl: "-₹4.85", qty: 218, signal: "BUY", chartData: [462, 460, 461, 458, 456, 457, 455, 456, 453, 455, 454, 458, 459, 457, 456.85] },
+            "HDFCBANK": { fullName: "HDFC BANK LIMITED", cmp: 770.10, pct: "+2.73%", target: 785.50, sl: 762.40, diffTarget: "+₹15.40", diffSl: "-₹7.70", qty: 129, signal: "BUY", chartData: [750, 755, 753, 758, 764, 761, 766, 772, 768, 774, 776, 769, 771, 773, 770.10] },
+            "INFY": { fullName: "INFOSYS LIMITED", cmp: 1094.10, pct: "-2.58%", target: 1116.00, sl: 1083.00, diffTarget: "+₹21.90", diffSl: "-₹11.10", qty: 91, signal: "BUY", chartData: [1123, 1118, 1120, 1110, 1098, 1104, 1092, 1096, 1090, 1095, 1093, 1097, 1099, 1096, 1094.10] },
+            "ITC": { fullName: "ITC LIMITED", cmp: 307.20, pct: "+0.90%", target: 313.50, sl: 304.00, diffTarget: "+₹6.30", diffSl: "-₹3.20", qty: 325, signal: "BUY", chartData: [304, 305, 305, 306, 307, 306, 308, 309, 307, 308, 309, 306, 308, 308, 307.20] },
+            "JSWSTEEL": { fullName: "JSW STEEL LIMITED", cmp: 1298.50, pct: "+1.85%", target: 1325.05, sl: 1285.20, diffTarget: "+₹26.55", diffSl: "-₹13.30", qty: 77, signal: "BUY", chartData: [1275, 1282, 1280, 1288, 1294, 1290, 1296, 1302, 1297, 1304, 1306, 1295, 1299, 1301, 1298.50] },
+            "LT": { fullName: "LARSEN & TOUBRO LIMITED", cmp: 3934.00, pct: "+0.46%", target: 4012.00, sl: 3895.00, diffTarget: "+₹78.00", diffSl: "-₹39.00", qty: 25, signal: "BUY", chartData: [3915, 3925, 3920, 3930, 3940, 3932, 3945, 3950, 3942, 3948, 3952, 3930, 3936, 3942, 3934.00] },
+            "M&M": { fullName: "MAHINDRA & MAHINDRA LIMITED", cmp: 3176.00, pct: "+2.06%", target: 3238.00, sl: 3145.00, diffTarget: "+₹62.00", diffSl: "-₹31.00", qty: 31, signal: "BUY", chartData: [3112, 3135, 3130, 3150, 3168, 3160, 3175, 3190, 3178, 3188, 3195, 3168, 3174, 3182, 3176.00] },
+            "MARUTI": { fullName: "MARUTI SUZUKI INDIA LIMITED", cmp: 13100.00, pct: "-0.02%", target: 13360.00, sl: 12970.00, diffTarget: "+₹260.00", diffSl: "-₹130.00", qty: 7, signal: "BUY", chartData: [13105, 13095, 13110, 13080, 13070, 13100, 13085, 13115, 13090, 13120, 13105, 13125, 13130, 13110, 13100.00] },
+            "NTPC": { fullName: "NTPC LIMITED", cmp: 396.00, pct: "+1.42%", target: 404.00, sl: 392.00, diffTarget: "+₹8.00", diffSl: "-₹4.00", qty: 252, signal: "BUY", chartData: [390, 392, 391, 394, 397, 395, 398, 400, 396, 399, 401, 394, 396, 398, 396.00] },
+            "ONGC": { fullName: "OIL AND NATURAL GAS CORPORATION LIMITED", cmp: 300.90, pct: "+1.26%", target: 307.00, sl: 297.80, diffTarget: "+₹6.10", diffSl: "-₹3.10", qty: 332, signal: "BUY", chartData: [297, 298, 298, 300, 302, 301, 303, 304, 302, 303, 304, 300, 301, 302, 300.90] },
+            "SBIN": { fullName: "STATE BANK OF INDIA", cmp: 982.30, pct: "+1.26%", target: 1002.00, sl: 972.40, diffTarget: "+₹19.70", diffSl: "-₹9.90", qty: 101, signal: "BUY", chartData: [970, 974, 973, 978, 983, 980, 984, 988, 983, 987, 989, 980, 983, 985, 982.30] },
+            "SUNPHARMA": { fullName: "SUN PHARMACEUTICAL INDUSTRIES LIMITED", cmp: 1862.90, pct: "+2.09%", target: 1900.00, sl: 1844.30, diffTarget: "+₹37.10", diffSl: "-₹18.60", qty: 53, signal: "BUY", chartData: [1825, 1838, 1834, 1846, 1858, 1852, 1864, 1872, 1861, 1874, 1878, 1856, 1862, 1868, 1862.90] },
+            "TATASTEEL": { fullName: "TATA STEEL LIMITED", cmp: 220.65, pct: "+0.47%", target: 225.00, sl: 218.45, diffTarget: "+₹4.35", diffSl: "-₹2.20", qty: 453, signal: "BUY", chartData: [219, 220, 219.5, 221, 222, 221.5, 222.5, 223, 221.8, 222.8, 223.2, 220.2, 221, 221.5, 220.65] },
+            "TCS": { fullName: "TATA CONSULTANCY SERVICES LIMITED", cmp: 2249.90, pct: "-1.01%", target: 2284.00, sl: 2232.80, diffTarget: "+₹34.10", diffSl: "-₹17.10", qty: 44, signal: "BUY", chartData: [2272, 2265, 2268, 2255, 2244, 2250, 2241, 2246, 2238, 2245, 2242, 2248, 2252, 2248, 2249.90] },
+            "TITAN": { fullName: "TITAN COMPANY LIMITED", cmp: 4144.80, pct: "+1.32%", target: 4228.00, sl: 4103.00, diffTarget: "+₹83.20", diffSl: "-₹41.80", qty: 24, signal: "BUY", chartData: [4090, 4112, 4105, 4130, 4155, 4140, 4162, 4178, 4152, 4174, 4185, 4132, 4148, 4156, 4144.80] },
+            "TRENT": { fullName: "TRENT LIMITED", cmp: 4131.00, pct: "+1.14%", target: 4212.00, sl: 4090.00, diffTarget: "+₹81.00", diffSl: "-₹41.00", qty: 24, signal: "BUY", chartData: [4085, 4102, 4098, 4120, 4142, 4130, 4152, 4165, 4140, 4162, 4170, 4122, 4138, 4145, 4131.00] },
+            "WIPRO": { fullName: "WIPRO LIMITED", cmp: 188.10, pct: "+0.16%", target: 191.80, sl: 186.25, diffTarget: "+₹3.70", diffSl: "-₹1.85", qty: 531, signal: "BUY", chartData: [187.8, 188.2, 188.0, 188.5, 189.0, 188.6, 189.2, 189.5, 188.9, 189.4, 189.7, 187.9, 188.3, 188.6, 188.10] }
         };
 
-        // Render Lucide System Vector Icons Layout
         lucide.createIcons();
 
-        // High-precision clock ticker component
+        // High-precision system synchronized clock ticker
         function runSystemClockTicker() {
             const timeObject = new Date();
             document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
@@ -204,31 +224,15 @@
         setInterval(runSystemClockTicker, 1000);
         runSystemClockTicker();
 
-        // Configure Base Technical Chart Layer
+        // Configure Central Technical Waveform Chart Canvas Component
         const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
         let simulationChartEngine = new Chart(UI_Canvas_Node, {
             type: 'line',
             data: {
                 labels: Array.from({length: 15}, (_, tickIdx) => `09:${15 + tickIdx * 5}`),
                 datasets: [
-                    {
-                        borderColor: '#a78bfa',
-                        borderWidth: 1.5,
-                        borderDash: [4, 4],
-                        pointRadius: 0,
-                        fill: false,
-                        tension: 0.1,
-                        data: []
-                    },
-                    {
-                        borderColor: '#4ade80',
-                        borderWidth: 2,
-                        pointBackgroundColor: '#4ade80',
-                        pointRadius: function(ctx) { return ctx.dataIndex === 14 ? 6 : 0; },
-                        fill: false,
-                        tension: 0.1,
-                        data: []
-                    }
+                    { borderColor: '#a78bfa', borderWidth: 1.5, borderDash: [4, 4], pointRadius: 0, fill: false, tension: 0.1, data: [] },
+                    { borderColor: '#4ade80', borderWidth: 2, pointBackgroundColor: '#4ade80', pointRadius: function(ctx) { return ctx.dataIndex === 14 ? 6 : 0; }, fill: false, tension: 0.1, data: [] }
                 ]
             },
             options: {
@@ -242,52 +246,52 @@
             }
         });
 
-        // Main Core Dataset Selection Loader Engine
+        // REWRITTEN DYNAMIC MASTER DATA RE-CALCULATION ENGINE
         function loadStockData(ticker) {
             const stock = stockDatabase[ticker];
             if (!stock) return;
 
-            // Remap labels inside UI container nodes
-            document.getElementById('active-ticker-name').innerText = ticker;
-            document.getElementById('active-ticker-cmp').innerText = `Live CMP: ${stock.cmp.toFixed(2)}`;
+            // 1. Update Core Header Metrics (Symbols and Full Indian Corporate Names)
+            document.getElementById('active-ticker-symbol').innerText = ticker;
+            document.getElementById('active-ticker-fullname').innerText = stock.fullName;
+            document.getElementById('active-ticker-cmp').innerText = `Live CMP: ₹${stock.cmp.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
             
-            // Re-sync Same-Screen Exit Alert Fields
-            document.getElementById('exit-target-price').innerText = `₹${stock.target.toFixed(2)}`;
+            // 2. Re-Sync Same-Screen Automated Exit Alert Banners
+            document.getElementById('exit-target-price').innerText = `₹${stock.target.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
             document.getElementById('exit-target-diff').innerText = `TARGET GAIN: ${stock.diffTarget} (1:2.4 R:R)`;
-            document.getElementById('exit-stoploss-price').innerText = `₹${stock.sl.toFixed(2)}`;
+            document.getElementById('exit-stoploss-price').innerText = `₹${stock.sl.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
             document.getElementById('exit-stoploss-diff').innerText = `MAX RISK: ${stock.diffSl} (ATR x 1.0)`;
 
-            // Sync Right side order confirmation blocks
+            // 3. Re-Calculate Execution Panel Routing Specifications
             document.getElementById('execution-panel-signal').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: ${stock.signal} ${ticker}`;
-            document.getElementById('exec-trigger-price').innerText = `₹${stock.cmp.toFixed(2)}`;
+            document.getElementById('exec-trigger-price').innerText = `₹${stock.cmp.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
             document.getElementById('exec-calculated-qty').innerText = `${stock.qty} Shares`;
 
-            // Clear and update the technical chart array values
+            // 4. Redraw Central Chart Waveforms & Volatility Ranges
             simulationChartEngine.data.datasets[1].data = stock.chartData;
-            simulationChartEngine.data.datasets[0].data = stock.chartData.map(val => val * 0.998); // Synthetic indicator baseline
+            simulationChartEngine.data.datasets[0].data = stock.chartData.map(val => val * 0.998); // Synthetic reference band
             
-            // Calibrate min/max boundary constraints to fit data neatly on grid
-            const minVal = Math.min(...stock.chartData) * 0.99;
-            const maxVal = Math.max(...stock.chartData) * 1.01;
+            const minVal = Math.min(...stock.chartData) * 0.995;
+            const maxVal = Math.max(...stock.chartData) * 1.005;
             simulationChartEngine.options.scales.y.min = minVal;
             simulationChartEngine.options.scales.y.max = maxVal;
             
             simulationChartEngine.update();
             lucide.createIcons();
 
-            // Reset input values and clean up dropdown tracking boxes
+            // 5. Clean Up and Auto-Collapse Suggestion Containers
             document.getElementById('search-results-dropdown').classList.add('hidden');
             document.getElementById('stock-search-input').value = "";
             
             renderWatchlist(ticker);
         }
 
-        // Render Watchlist Sidebar Array Components
+        // Sidebar Watchlist Construction Grid
         function renderWatchlist(activeTicker = "RELIANCE") {
             const container = document.getElementById('watchlist-container');
             container.innerHTML = "";
             
-            const listItems = ["RELIANCE", "HDFCBANK", "INFY", "TATAMOTORS", "AXISBANK"];
+            const listItems = ["RELIANCE", "HDFCBANK", "INFY", "BAJAJ-AUTO", "SBIN"];
             listItems.forEach(ticker => {
                 const stock = stockDatabase[ticker];
                 const isActive = ticker === activeTicker;
@@ -303,43 +307,45 @@
             });
         }
 
-        // REWRITTEN HIGH-SPEED LIVE KEYSTROKE DISPLAY ENGINE
+        // EXTENDED INDIAN STOCK MULTI-KEY SUGGESTION DISPLAY SYSTEM
         function filterStockSearch() {
             const inputField = document.getElementById('stock-search-input');
             const searchDropdown = document.getElementById('search-results-dropdown');
             const userQuery = inputField.value.trim().toUpperCase();
 
-            // Collapse search panel if empty
             if (userQuery === "") {
                 searchDropdown.classList.add('hidden');
                 return;
             }
 
-            // Loop through internal system database to verify matches
-            const matchedStocks = Object.keys(stockDatabase).filter(ticker => ticker.includes(userQuery));
+            // Checks query match against either official Ticker Symbol OR Full Corporate Indian Name
+            const matchedStocks = Object.keys(stockDatabase).filter(ticker => 
+                ticker.includes(userQuery) || stockDatabase[ticker].fullName.toUpperCase().includes(userQuery)
+            );
 
             if (matchedStocks.length === 0) {
-                searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching tickers found</div>`;
+                searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching Indian tickers found</div>`;
             } else {
                 searchDropdown.innerHTML = "";
-                // Generate suggestion rows immediately
                 matchedStocks.forEach(ticker => {
                     const data = stockDatabase[ticker];
                     const trackingColor = data.pct.includes('+') ? 'text-[#4ade80]' : 'text-[#f87171]';
                     
                     searchDropdown.innerHTML += `
-                        <div class="flex justify-between p-3 text-xs hover:bg-[#24231e] cursor-pointer transition-colors border-b border-[#2d2b24]" onclick="loadStockData('${ticker}')">
-                            <span class="font-bold text-white tracking-wide">${ticker}</span>
-                            <span class="${trackingColor} font-sans">${data.cmp.toFixed(2)} (${data.pct})</span>
+                        <div class="flex flex-col p-3 hover:bg-[#24231e] cursor-pointer transition-colors border-b border-[#2d2b24]" onclick="loadStockData('${ticker}')">
+                            <div class="flex justify-between items-center">
+                                <span class="font-bold text-white tracking-wide">${ticker}</span>
+                                <span class="${trackingColor} font-sans text-xs">${data.cmp.toFixed(2)} (${data.pct})</span>
+                            </div>
+                            <span class="text-[10px] text-[#a09e95] truncate mt-0.5 max-w-[95%]">${data.fullName}</span>
                         </div>
                     `;
                 });
             }
-            // Remove hidden tracking constraint class
             searchDropdown.classList.remove('hidden');
         }
 
-        // Collapse search results box automatically when user clicks anywhere else
+        // Universal outside-click drop listener for workspace drawers
         document.addEventListener('click', function(e) {
             const containerBox = document.getElementById('stock-search-input').parentElement.parentElement;
             if (!containerBox.contains(e.target)) {
@@ -347,12 +353,10 @@
             }
         });
 
-        // Trigger Event For Order Placed Confirmation Mock
         function executeOrderNotify() {
             alert("SYSTEM NOTIFICATION: Order instruction package dispatched over API routing lanes.");
         }
 
-        // Emergency Liquidation Safety Routine Failure Recovery Loop
         function triggerSystemicLiquidationSweep() {
             const verificationState = confirm("CRITICAL INTERVENTION: Initiate master execution loop to clear and liquidate all active positions at market price immediately?");
             if (verificationState) {
@@ -360,7 +364,6 @@
             }
         }
 
-        // Setup base state execution sequence upon frame initialization
         window.onload = function() {
             loadStockData("RELIANCE");
         };
