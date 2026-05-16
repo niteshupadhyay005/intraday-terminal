@@ -22,67 +22,53 @@
     <header class="bg-[#1c1b17] border border-[#2d2b24] px-4 py-2 flex items-center justify-between text-xs rounded">
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-2">
-                <span class="w-2 h-2 rounded-full bg-[#4ade80] animate-pulse"></span>
+                <span class="w-2 h-2 rounded-full bg-[#eab308] animate-pulse"></span>
                 <span class="text-[#a09e95]">DATA STREAM:</span>
-                <span class="text-white font-bold">EXCHANGE → WEBSOCKET API → SYSTEM CORE (Latency: 14ms)</span>
+                <span class="text-white font-bold">OFFLINE MODE — SIMULATED ARCHIVE ENGINE (Latency: 0ms)</span>
             </div>
             <div class="border-l border-[#2d2b24] h-4"></div>
             <div>CAPITAL: <span class="text-white font-bold">₹10,00,000</span></div>
-            <div>DAILY P&L: <span class="text-[#4ade80] font-bold">+₹4,320</span></div>
-            <div>MAX DRAWDOWN LIMIT: <span class="text-[#f87171] font-bold">3.0%</span></div>
+            <div>DAILY P&L: <span class="text-[#4ade80] font-bold" id="top-panel-pnl">+₹4,320</span></div>
         </div>
         <div class="flex items-center gap-4">
             <span class="text-[#a09e95]" id="clock-display">00:00:00</span>
-            <span class="bg-[#1b3622] border border-[#275432] text-[#4ade80] px-2 py-0.5 rounded text-[10px] font-bold">SEBI COMPLIANT</span>
+            <span class="bg-[#362e1b] border border-[#544327] text-[#eab308] px-2 py-0.5 rounded text-[10px] font-bold">SIMULATION ACTIVE</span>
         </div>
     </header>
 
     <main class="flex-1 flex gap-2 min-h-0">
         
-        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-4 min-h-0">
+        <section class="w-1/4 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col p-3 gap-3 min-h-0">
+            
+            <div class="flex flex-col gap-1 relative">
+                <label class="text-[10px] text-[#a09e95] font-bold tracking-wider">SEARCH INSTRUMENT MODULE</label>
+                <div class="flex items-center bg-[#12110e] border border-[#383630] rounded px-2 py-1.5 focus-within:border-[#3182ce]">
+                    <i data-lucide="search" class="w-3.5 h-3.5 text-[#a09e95] mr-2"></i>
+                    <input type="text" id="stock-search-input" placeholder="Type Ticker (e.g. TATA, INFY, SBIN)..." class="bg-transparent text-xs text-white outline-none w-full placeholder-[#5a5850]" oninput="filterStockSearch()">
+                </div>
+                <div id="search-results-dropdown" class="absolute top-[48px] left-0 right-0 bg-[#1c1b17] border border-[#383630] rounded shadow-2xl z-50 max-h-48 overflow-y-auto custom-scroll hidden">
+                    </div>
+            </div>
+
             <div class="flex flex-col gap-1.5">
-                <div class="flex justify-between items-center text-[11px] text-[#a09e95] font-bold tracking-wider mb-1">
-                    <span>NIFTY 200 LIQUID WATCHLIST</span>
-                    <span>200 active</span>
-                </div>
-                <div class="space-y-1 text-xs">
-                    <div class="flex justify-between p-2 bg-[#232b38] border-l-2 border-[#3182ce] rounded cursor-pointer">
-                        <span class="font-bold text-white">RELIANCE</span>
-                        <span class="text-[#4ade80]">2847.30 (+1.4%)</span>
+                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-1">MARKET WATCHLIST (CLICK TO LOAD)</div>
+                <div class="space-y-1 text-xs" id="watchlist-container">
                     </div>
-                    <div class="flex justify-between p-2 hover:bg-[#252420] rounded cursor-pointer transition-colors">
-                        <span>HDFCBANK</span>
-                        <span class="text-[#f87171]">1623.38 (-0.8%)</span>
-                    </div>
-                    <div class="flex justify-between p-2 hover:bg-[#252420] rounded cursor-pointer transition-colors">
-                        <span>INFY</span>
-                        <span class="text-[#4ade80]">1481.75 (+2.1%)</span>
-                    </div>
-                </div>
             </div>
 
             <div class="flex flex-col gap-1.5">
                 <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-1 flex items-center gap-1">
-                    <i data-lucide="activity" class="w-3 h-3 text-[#3182ce]"></i> LIVE BREAKOUT SCANNER (VOLUME > 2X)
+                    <i data-lucide="activity" class="w-3 h-3 text-[#3182ce]"></i> BREAKOUT SCANS
                 </div>
                 <div class="space-y-1 text-xs">
-                    <div class="flex justify-between p-2 bg-[#192b1d] border border-[#224d29] rounded">
+                    <div class="flex justify-between p-2 bg-[#192b1d] border border-[#224d29] rounded cursor-pointer" onclick="loadStockData('LTIM')">
                         <span class="text-[#4ade80] font-bold">LTIM</span>
-                        <span class="text-[#4ade80]">5312.00 (+3.2%) [Vol 2.4x]</span>
+                        <span class="text-[#4ade80]">5312.00 (+3.2%)</span>
                     </div>
-                    <div class="flex justify-between p-2 bg-[#2d1a1a] border border-[#4d2222] rounded">
+                    <div class="flex justify-between p-2 bg-[#2d1a1a] border border-[#4d2222] rounded cursor-pointer" onclick="loadStockData('ONGC')">
                         <span class="text-[#f87171] font-bold">ONGC</span>
-                        <span class="text-[#f87171]">188.45 (-2.7%) [Vol 2.1x]</span>
+                        <span class="text-[#f87171]">188.45 (-2.7%)</span>
                     </div>
-                </div>
-            </div>
-
-            <div class="mt-auto border-t border-[#2d2b24] pt-3">
-                <div class="text-[11px] text-[#a09e95] font-bold tracking-wider mb-2">SECTOR STRENGTH CORRELATION</div>
-                <div class="grid grid-cols-3 gap-1.5 text-[11px] text-center">
-                    <div class="p-1 bg-[#192b1d] border border-[#224d29] text-[#4ade80] rounded">IT +1.8%</div>
-                    <div class="p-1 bg-[#2d1a1a] border border-[#4d2222] text-[#f87171] rounded">BANK -0.4%</div>
-                    <div class="p-1 bg-[#192b1d] border border-[#224d29] text-[#4ade80] rounded">AUTO +0.7%</div>
                 </div>
             </div>
         </section>
@@ -90,10 +76,10 @@
         <section class="flex-1 bg-[#1c1b17] border border-[#2d2b24] rounded flex flex-col relative min-h-0">
             <div class="p-3 border-b border-[#2d2b24] flex justify-between items-center text-xs">
                 <div class="flex items-center gap-3">
-                    <span class="font-bold text-white text-sm">RELIANCE</span>
-                    <span class="text-[#a09e95]">|</span>
+                    <span class="font-bold text-white text-sm" id="active-ticker-name">RELIANCE</span>
+                    <span class="text-[#a09e95]">•</span>
                     <span class="bg-[#24231e] px-2 py-0.5 rounded text-[#e2e0d9]">5-MIN CHART</span>
-                    <span class="text-[#4ade80] font-bold">Live CMP: 2847.30</span>
+                    <span class="text-[#4ade80] font-bold" id="active-ticker-cmp">Live CMP: 2847.30</span>
                 </div>
                 <div class="flex items-center gap-2">
                     <span class="bg-[#3b1d54] text-[#d6bdf2] px-1.5 py-0.5 rounded text-[10px] font-bold">VWAP SYSTEM</span>
@@ -109,8 +95,8 @@
                         <span class="tracking-wider">AUTOMATED PROMPT: TAKE PROFIT TARGET HIT AREA</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-white text-sm">₹2,871.50</span>
-                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300">TARGET GAIN: +₹24.20 (1:2.4 R:R)</span>
+                        <span class="text-white text-sm" id="exit-target-price">₹2,871.50</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-target-diff">TARGET GAIN: +₹24.20 (1:2.4 R:R)</span>
                     </div>
                 </div>
 
@@ -122,8 +108,8 @@
                         <span class="tracking-wider">CRITICAL PROMPT: ENFORCED SYSTEM STOP-LOSS BOUNDARY</span>
                     </div>
                     <div class="flex items-center gap-4">
-                        <span class="text-white text-sm">₹2,835.20</span>
-                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300">MAX RISK: -₹12.10 (ATR x 1.0)</span>
+                        <span class="text-white text-sm" id="exit-stoploss-price">₹2,835.20</span>
+                        <span class="bg-[#1c1b17] px-2 py-0.5 rounded text-[10px] text-gray-300" id="exit-stoploss-diff">MAX RISK: -₹12.10 (ATR×1.0)</span>
                     </div>
                 </div>
             </div>
@@ -133,12 +119,12 @@
             <div class="border border-[#2d2b24] bg-[#12110e] p-3 rounded">
                 <div class="text-[10px] text-[#a09e95] font-bold tracking-wider mb-2">QUANT ENGINE EXECUTION ORDER</div>
                 <div class="text-xs space-y-2">
-                    <div class="text-[#4ade80] font-bold flex items-center gap-1 text-sm bg-[#16261a] p-1.5 rounded border border-[#1b4d24]">
+                    <div class="text-[#4ade80] font-bold flex items-center gap-1 text-sm bg-[#16261a] p-1.5 rounded border border-[#1b4d24]" id="execution-panel-signal">
                         <i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: BUY RELIANCE
                     </div>
                     <div class="space-y-1 pt-1 text-[#c2c0b6]">
-                        <div class="flex justify-between"><span>Trigger Price</span><span class="text-white font-bold">₹2,847.30</span></div>
-                        <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white">35 Shares</span></div>
+                        <div class="flex justify-between"><span>Trigger Price</span><span class="text-white font-bold" id="exec-trigger-price">₹2,847.30</span></div>
+                        <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white" id="exec-calculated-qty">35 Shares</span></div>
                         <div class="flex justify-between"><span>Capital at Risk</span><span class="text-[#f87171]">₹9,870 (1.0%)</span></div>
                         <div class="flex justify-between"><span>Risk-Reward Ratio</span><span class="text-[#4ade80]">1 : 2.4</span></div>
                     </div>
@@ -155,14 +141,14 @@
                     <div class="flex justify-between p-2 bg-[#12110e] border border-[#2d2b24] rounded items-center">
                         <div>
                             <div class="text-white font-bold text-xs">INFY</div>
-                            <div class="text-[10px] text-[#a09e95]">Qty: 67 | Long Position</div>
+                            <div class="text-[10px] text-[#a09e95]">Qty: 67 • Long Position</div>
                         </div>
                         <span class="text-[#4ade80] font-bold text-xs">+₹2,814</span>
                     </div>
                     <div class="flex justify-between p-2 bg-[#12110e] border border-[#2d2b24] rounded items-center">
                         <div>
                             <div class="text-white font-bold text-xs">LTIM</div>
-                            <div class="text-[10px] text-[#a09e95]">Qty: 18 | Long Position</div>
+                            <div class="text-[10px] text-[#a09e95]">Qty: 18 • Long Position</div>
                         </div>
                         <span class="text-[#4ade80] font-bold text-xs">+₹1,506</span>
                     </div>
@@ -194,10 +180,22 @@
     </footer>
 
     <script>
-        // Init vector asset layout icons
+        // Static Core Dataset for Offline Functionality
+        const stockDatabase = {
+            "RELIANCE": { cmp: 2847.30, pct: "+1.4%", target: 2871.50, sl: 2835.20, diffTarget: "+₹24.20", diffSl: "-₹12.10", qty: 35, signal: "BUY", chartData: [2805, 2812, 2810, 2818, 2825, 2822, 2830, 2835, 2831, 2840, 2846, 2842, 2850, 2855, 2847] },
+            "HDFCBANK": { cmp: 1623.38, pct: "-0.8%", target: 1642.00, sl: 1611.50, diffTarget: "+₹18.62", diffSl: "-₹11.88", qty: 60, signal: "BUY", chartData: [1640, 1638, 1635, 1633, 1630, 1628, 1629, 1625, 1622, 1626, 1624, 1620, 1621, 1625, 1623.38] },
+            "INFY": { cmp: 1481.75, pct: "+2.1%", target: 1502.40, sl: 1468.00, diffTarget: "+₹20.65", diffSl: "-₹13.75", qty: 65, signal: "BUY", chartData: [1450, 1455, 1452, 1460, 1466, 1462, 1470, 1474, 1471, 1478, 1482, 1479, 1483, 1485, 1481.75] },
+            "TATAMOTORS": { cmp: 924.60, pct: "+0.9%", target: 938.00, sl: 915.00, diffTarget: "+₹13.40", diffSl: "-₹9.60", qty: 105, signal: "BUY", chartData: [915, 918, 916, 920, 922, 919, 923, 925, 922, 926, 928, 925, 927, 929, 924.60] },
+            "AXISBANK": { cmp: 1089.20, pct: "-0.3%", target: 1105.00, sl: 1078.00, diffTarget: "+₹15.80", diffSl: "-₹11.20", qty: 90, signal: "BUY", chartData: [1095, 1092, 1094, 1090, 1088, 1091, 1087, 1089, 1086, 1088, 1085, 1087, 1089, 1091, 1089.20] },
+            "LTIM": { cmp: 5312.00, pct: "+3.2%", target: 5410.00, sl: 5245.00, diffTarget: "+₹98.00", diffSl: "-₹67.00", qty: 18, signal: "BUY", chartData: [5150, 5180, 5200, 5190, 5230, 5260, 5240, 5290, 5320, 5300, 5340, 5330, 5360, 5380, 5312] },
+            "ONGC": { cmp: 188.45, pct: "-2.7%", target: 194.00, sl: 184.50, diffTarget: "+₹5.55", diffSl: "-₹3.95", qty: 500, signal: "BUY", chartData: [194, 193, 191, 192, 190, 189, 189.5, 188, 187, 187.5, 186, 187, 188, 189, 188.45] },
+            "SBIN": { cmp: 742.10, pct: "+1.1%", target: 754.00, sl: 734.00, diffTarget: "+₹11.90", diffSl: "-₹8.10", qty: 135, signal: "BUY", chartData: [732, 735, 734, 738, 739, 737, 741, 743, 740, 744, 745, 742, 744, 746, 742.10] },
+            "TCS": { cmp: 3950.00, pct: "+0.5%", target: 3995.00, sl: 3910.00, diffTarget: "+₹45.00", diffSl: "-₹40.00", qty: 25, signal: "BUY", chartData: [3930, 3940, 3935, 3945, 3950, 3942, 3955, 3960, 3952, 3965, 3970, 3962, 3968, 3972, 3950.00] }
+        };
+
         lucide.createIcons();
 
-        // High-precision system synchronized clock ticker
+        // System synchronized clock ticker
         function runSystemClockTicker() {
             const timeObject = new Date();
             document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
@@ -205,33 +203,30 @@
         setInterval(runSystemClockTicker, 1000);
         runSystemClockTicker();
 
-        // High Performance Rendering Engine For Price Candlesticks Mock Configuration
+        // Initialize Primary Chart Component
         const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
-        
-        const simulationChartEngine = new Chart(UI_Canvas_Node, {
+        let simulationChartEngine = new Chart(UI_Canvas_Node, {
             type: 'line',
             data: {
                 labels: Array.from({length: 15}, (_, tickIdx) => `09:${15 + tickIdx * 5}`),
                 datasets: [
                     {
-                        label: 'VWAP Baseline Vector',
-                        data: [2810, 2815, 2814, 2819, 2822, 2825, 2824, 2829, 2832, 2835, 2834, 2839, 2842, 2845, 2847],
                         borderColor: '#a78bfa',
                         borderWidth: 1.5,
                         borderDash: [4, 4],
                         pointRadius: 0,
                         fill: false,
-                        tension: 0.1
+                        tension: 0.1,
+                        data: []
                     },
                     {
-                        label: 'Price Trend Vector',
-                        data: [2805, 2812, 2810, 2818, 2825, 2822, 2830, 2835, 2831, 2840, 2846, 2842, 2850, 2855, 2847],
                         borderColor: '#4ade80',
                         borderWidth: 2,
                         pointBackgroundColor: '#4ade80',
                         pointRadius: function(ctx) { return ctx.dataIndex === 14 ? 6 : 0; },
                         fill: false,
-                        tension: 0.1
+                        tension: 0.1,
+                        data: []
                     }
                 ]
             },
@@ -241,8 +236,110 @@
                 plugins: { legend: { display: false } },
                 scales: {
                     x: { grid: { color: '#24231e' }, ticks: { color: '#a09e95', font: { size: 9 } } },
-                    y: { position: 'right', min: 2790, max: 2875, grid: { color: '#24231e' }, ticks: { color: '#a09e95', font: { size: 9 } } }
+                    y: { position: 'right', grid: { color: '#24231e' }, ticks: { color: '#a09e95', font: { size: 9 } } }
                 }
+            }
+        });
+
+        // Main Core Data Loading Engine Logic
+        function loadStockData(ticker) {
+            const stock = stockDatabase[ticker];
+            if (!stock) return;
+
+            // UI Label Refresher Elements
+            document.getElementById('active-ticker-name').innerText = ticker;
+            document.getElementById('active-ticker-cmp').innerText = `Live CMP: ${stock.cmp.toFixed(2)}`;
+            
+            // Exit Prompt Banner Metric Remapper
+            document.getElementById('exit-target-price').innerText = `₹${stock.target.toFixed(2)}`;
+            document.getElementById('exit-target-diff').innerText = `TARGET GAIN: ${stock.diffTarget} (1:2.4 R:R)`;
+            document.getElementById('exit-stoploss-price').innerText = `₹${stock.sl.toFixed(2)}`;
+            document.getElementById('exit-stoploss-diff').innerText = `MAX RISK: ${stock.diffSl} (ATR x 1.0)`;
+
+            // Execution Module Remapper
+            document.getElementById('execution-panel-signal').innerHTML = `<i data-lucide="check-circle" class="w-4 h-4"></i> ENTRY SIGNAL VALIDATED: ${stock.signal} ${ticker}`;
+            document.getElementById('exec-trigger-price').innerText = `₹${stock.cmp.toFixed(2)}`;
+            document.getElementById('exec-calculated-qty').innerText = `${stock.qty} Shares`;
+
+            // Dynamic Chart Boundary Calibrator
+            simulationChartEngine.data.datasets[1].data = stock.chartData;
+            // Generate basic custom dynamic offset curve for the VWAP channel layer
+            simulationChartEngine.data.datasets[0].data = stock.chartData.map(val => val * 0.998);
+            
+            // Recalculate layout scales dynamically
+            const minVal = Math.min(...stock.chartData) * 0.99;
+            const maxVal = Math.max(...stock.chartData) * 1.01;
+            simulationChartEngine.options.scales.y.min = minVal;
+            simulationChartEngine.options.scales.y.max = maxVal;
+            
+            simulationChartEngine.update();
+            lucide.createIcons();
+
+            // Auto-collapse Search Drawer on pick
+            document.getElementById('search-results-dropdown').classList.add('hidden');
+            document.getElementById('stock-search-input').value = "";
+            
+            renderWatchlist(ticker);
+        }
+
+        // Render Sidebar Component Items
+        function renderWatchlist(activeTicker = "RELIANCE") {
+            const container = document.getElementById('watchlist-container');
+            container.innerHTML = "";
+            
+            const listItems = ["RELIANCE", "HDFCBANK", "INFY", "TATAMOTORS", "AXISBANK"];
+            listItems.forEach(ticker => {
+                const stock = stockDatabase[ticker];
+                const isActive = ticker === activeTicker;
+                const colorClass = stock.pct.includes('+') ? 'text-[#4ade80]' : 'text-[#f87171]';
+                const bgStyle = isActive ? 'bg-[#232b38] border-l-2 border-[#3182ce]' : 'hover:bg-[#252420]';
+                
+                container.innerHTML += `
+                    <div class="flex justify-between p-2 rounded cursor-pointer transition-colors ${bgStyle}" onclick="loadStockData('${ticker}')">
+                        <span class="font-bold ${isActive ? 'text-white' : ''}">${ticker}</span>
+                        <span class="${colorClass}">${stock.cmp.toFixed(2)} (${stock.pct})</span>
+                    </div>
+                `;
+            });
+        }
+
+        // Interactive Live Query Search Filter System
+        function filterStockSearch() {
+            const inputField = document.getElementById('stock-search-input');
+            const searchDropdown = document.getElementById('search-results-dropdown');
+            const userQuery = inputField.value.trim().toUpperCase();
+
+            if (userQuery === "") {
+                searchDropdown.classList.add('hidden');
+                return;
+            }
+
+            const matchedStocks = Object.keys(stockDatabase).filter(ticker => ticker.includes(userQuery));
+
+            if (matchedStocks.length === 0) {
+                searchDropdown.innerHTML = `<div class="p-2 text-xs text-[#a09e95]">No corresponding tickers matched</div>`;
+            } else {
+                searchDropdown.innerHTML = "";
+                matchedStocks.forEach(ticker => {
+                    const data = stockDatabase[ticker];
+                    const trackingColor = data.pct.includes('+') ? 'text-[#4ade80]' : 'text-[#f87171]';
+                    
+                    searchDropdown.innerHTML += `
+                        <div class="flex justify-between p-2.5 text-xs hover:bg-[#24231e] cursor-pointer transition-colors border-b border-[#2d2b24]" onclick="loadStockData('${ticker}')">
+                            <span class="font-bold text-white">${ticker}</span>
+                            <span class="${trackingColor}">${data.cmp.toFixed(2)} (${data.pct})</span>
+                        </div>
+                    `;
+                });
+            }
+            searchDropdown.classList.remove('hidden');
+        }
+
+        // Hide query drawer when clicking elsewhere on interface canvas area
+        document.addEventListener('click', function(e) {
+            const containerBox = document.getElementById('stock-search-input').parentElement.parentElement;
+            if (!containerBox.contains(e.target)) {
+                document.getElementById('search-results-dropdown').classList.add('hidden');
             }
         });
 
@@ -258,6 +355,11 @@
                 alert("SUCCESS: All open operations flattened cleanly. Zero risk asset balance verified.");
             }
         }
+
+        // Initialize Default View Node State on Startup Sequence Loop
+        window.onload = function() {
+            loadStockData("RELIANCE");
+        };
     </script>
 </body>
 </html>
