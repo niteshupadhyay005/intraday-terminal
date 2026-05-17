@@ -19,9 +19,9 @@
         .glow-red { text-shadow: 0 0 8px rgba(248, 113, 113, 0.4); }
     </style>
 </head>
-<body class="text-[#e2e0d9] h-screen flex flex-col overflow-hidden p-2 gap-2 select-none">
+<body class="text-[#e2e0d9] min-h-screen flex flex-col justify-between overflow-x-hidden p-2 gap-2 select-none">
 
-    <header class="bg-[#151412] border border-[#262420] px-4 py-2 flex items-center justify-between text-xs rounded shadow-md">
+    <header class="bg-[#151412] border border-[#262420] px-4 py-2 flex items-center justify-between text-xs rounded shadow-md flex-shrink-0">
         <div class="flex items-center gap-6">
             <div class="flex items-center gap-2">
                 <span class="w-2.5 h-2.5 rounded-full bg-[#10b981]" id="status-dot"></span>
@@ -43,16 +43,16 @@
         </div>
     </header>
 
-    <main class="flex-1 flex gap-2 min-h-0">
+    <main class="flex-1 grid grid-cols-4 gap-2 min-h-0 items-stretch my-1">
         
-        <section class="w-1/4 bg-[#151412] border border-[#262420] rounded flex flex-col p-3 gap-3 min-h-0 relative">
+        <section class="col-span-1 bg-[#151412] border border-[#262420] rounded flex flex-col p-3 gap-3 min-h-0 relative">
             <div class="flex flex-col gap-1 relative z-50">
                 <label class="text-[10px] text-[#a09e95] font-black tracking-widest">NSE LIVE INSTRUMENT GLOBAL SEARCH</label>
                 <div class="flex items-center bg-[#0a0a09] border border-[#33312b] rounded px-2.5 py-2 focus-within:border-[#3182ce] transition-colors">
                     <i data-lucide="search" class="w-4 h-4 text-[#a09e95] mr-2"></i>
                     <input type="text" id="stock-search-input" placeholder="Search Ticker (e.g. RELIANCE, SBIN)..." class="bg-transparent text-xs text-white outline-none w-full placeholder-[#5a5850] font-bold" oninput="filterStockSearchOnline()">
                 </div>
-                <div id="search-results-dropdown" class="absolute top-[52px] left-0 right-0 bg-[#151412] border border-[#33312b] rounded shadow-2xl max-h-64 overflow-y-auto custom-scroll hidden z-50"></div>
+                <div id="search-results-dropdown" class="absolute top-[52px] left-0 right-0 bg-[#151412] border border-[#33312b] rounded shadow-2xl max-h-48 overflow-y-auto custom-scroll hidden z-50"></div>
             </div>
 
             <div class="flex flex-col gap-1.5 flex-1 min-h-0">
@@ -61,16 +61,16 @@
                     </div>
             </div>
 
-            <div class="flex flex-col gap-1.5 border-t border-[#262420] pt-2">
+            <div class="flex flex-col gap-1.5 border-t border-[#262420] pt-2 flex-shrink-0">
                 <div class="text-[10px] text-[#a09e95] font-black tracking-widest flex items-center gap-1">
                     <i data-lucide="activity" class="w-3.5 h-3.5 text-[#3182ce]"></i> HIGH-VOLUME MOMENTUM SCANS
                 </div>
                 <div class="grid grid-cols-1 gap-1 text-xs">
-                    <div class="flex justify-between p-2.5 bg-[#0e1f13] border border-[#1b3d24] rounded cursor-pointer" onclick="loadStockDataOnline('TATASTEEL')">
+                    <div class="flex justify-between p-2 bg-[#0e1f13] border border-[#1b3d24] rounded cursor-pointer" onclick="loadStockDataOnline('TATASTEEL')">
                         <span class="text-[#f87171] font-black">TATASTEEL</span>
                         <span class="text-[#f87171] font-black" id="scan-tatasteel-val">₹216.84</span>
                     </div>
-                    <div class="flex justify-between p-2.5 bg-[#1f0e0e] border border-[#3d1b1b] rounded cursor-pointer" onclick="loadStockDataOnline('CIPLA')">
+                    <div class="flex justify-between p-2 bg-[#1f0e0e] border border-[#3d1b1b] rounded cursor-pointer" onclick="loadStockDataOnline('CIPLA')">
                         <span class="text-[#4ade80] font-black">CIPLA</span>
                         <span class="text-[#4ade80] font-black" id="scan-cipla-val">₹1,435.00</span>
                     </div>
@@ -78,8 +78,8 @@
             </div>
         </section>
 
-        <section class="flex-1 bg-[#151412] border border-[#262420] rounded flex flex-col relative min-h-0">
-            <div class="p-3 border-b border-[#262420] flex justify-between items-center text-xs">
+        <section class="col-span-2 bg-[#151412] border border-[#262420] rounded flex flex-col relative min-h-0">
+            <div class="p-3 border-b border-[#262420] flex justify-between items-center text-xs flex-shrink-0">
                 <div class="flex flex-col gap-0.5">
                     <div class="flex items-center gap-2">
                         <span class="font-black text-white text-base tracking-wide" id="active-ticker-symbol">RELIANCE</span>
@@ -88,7 +88,7 @@
                     <span class="text-[10px] text-[#a09e95] uppercase font-black tracking-wide" id="active-ticker-fullname">RELIANCE INDUSTRIES LTD</span>
                 </div>
                 
-                <div class="flex items-center gap-3 bg-[#0a0a09] border border-[#262420] px-3 py-1.5 rounded">
+                <div class="flex items-center gap-3 bg-[#0a0a09] border border-[#262420] px-3 py-1 rounded">
                     <div class="flex flex-col">
                         <span class="text-[9px] text-[#a09e95] font-black">ALGO TREND</span>
                         <span class="text-xs font-black uppercase text-[#4ade80]" id="active-stock-trend">BULLISH MOMENTUM</span>
@@ -106,158 +106,159 @@
             </div>
 
             <div class="flex-1 relative bg-[#0b0a09] min-h-0">
-                <div class="absolute top-2 left-2 right-2 bg-[#092412] border border-[#144d23] text-[#4ade80] px-4 py-2 rounded flex justify-between items-center text-xs font-black z-10">
+                <div class="absolute top-2 left-2 right-2 bg-[#092412] border border-[#144d23] text-[#4ade80] px-4 py-1.5 rounded flex justify-between items-center text-xs font-black z-10">
                     <span id="exit-target-label">AUTOMATED TARGET EXITS LEVEL ALERT</span>
-                    <span class="text-white text-sm font-black" id="exit-target-price">₹0.00</span>
+                    <span class="text-white text-xs font-black" id="exit-target-price">₹0.00</span>
                 </div>
 
-                <canvas id="primaryWaveformCanvas" class="w-full h-full p-4 pt-14 pb-14"></canvas>
+                <canvas id="primaryWaveformCanvas" class="w-full h-full p-2 pt-12 pb-12"></canvas>
 
-                <div class="absolute bottom-2 left-2 right-2 bg-[#290d0d] border border-[#521818] text-[#f87171] px-4 py-2 rounded flex justify-between items-center text-xs font-black z-10">
+                <div class="absolute bottom-2 left-2 right-2 bg-[#290d0d] border border-[#521818] text-[#f87171] px-4 py-1.5 rounded flex justify-between items-center text-xs font-black z-10">
                     <span id="exit-stoploss-label">SYSTEMIC RISK MANAGEMENT PROTECTION BOUNDARY</span>
-                    <span class="text-white text-sm font-black" id="exit-stoploss-price">₹0.00</span>
+                    <span class="text-white text-xs font-black" id="exit-stoploss-price">₹0.00</span>
                 </div>
             </div>
         </section>
 
-        <section class="w-1/4 bg-[#151412] border border-[#262420] rounded flex flex-col p-3 gap-4 min-h-0">
-            <div class="border border-[#262420] bg-[#0a0a09] p-3 rounded">
+        <section class="col-span-1 bg-[#151412] border border-[#262420] rounded flex flex-col p-3 gap-3 min-h-0">
+            <div class="border border-[#262420] bg-[#0a0a09] p-3 rounded flex-shrink-0">
                 <div class="text-[10px] text-[#a09e95] font-black tracking-widest mb-2">ALGORITHMIC TRADING STRATEGY INDEX</div>
                 <div class="text-xs space-y-2 text-[#c2c0b6]">
-                    
-                    <div class="p-2 rounded font-black text-center text-xs uppercase bg-[#0c2413] text-[#4ade80] border border-[#144d23]" id="algo-signal-banner">
+                    <div class="p-1.5 rounded font-black text-center text-[11px] uppercase bg-[#0c2413] text-[#4ade80] border border-[#144d23]" id="algo-signal-banner">
                         RECOMMENDED ACTION: BUY LONG AT CMP
                     </div>
-                    <div class="text-[10px] text-[#a09e95] font-bold border-b border-[#262420] pb-1 uppercase" id="algo-execution-reason">
+                    <div class="text-[9px] text-[#a09e95] font-bold border-b border-[#262420] pb-1 uppercase" id="algo-execution-reason">
                         Price holding support above 9 EMA layer with RSI support strength.
                     </div>
-
-                    <div class="flex justify-between"><span>Trigger Entry Price</span><span class="text-white font-black" id="exec-trigger-price">₹0.00</span></div>
-                    <div class="flex justify-between"><span>Calculated Qty</span><span class="text-white font-black" id="exec-calculated-qty">0 Shares</span></div>
-                    <div class="flex justify-between"><span>Position Risk (1%)</span><span class="text-[#f87171] font-black" id="exec-risk-allotment">₹0.00</span></div>
+                    <div class="flex justify-between text-[11px]"><span>Trigger Entry</span><span class="text-white font-black" id="exec-trigger-price">₹0.00</span></div>
+                    <div class="flex justify-between text-[11px]"><span>Calculated Qty</span><span class="text-white font-black" id="exec-calculated-qty">0 Shares</span></div>
+                    <div class="flex justify-between text-[11px]"><span>Position Risk</span><span class="text-[#f87171] font-black" id="exec-risk-allotment">₹0.00</span></div>
                 </div>
             </div>
 
-            <div class="border border-[#262420] bg-[#0a0a09] p-3 rounded">
+            <div class="border border-[#262420] bg-[#0a0a09] p-3 rounded flex-shrink-0">
                 <div class="text-[10px] text-[#a09e95] font-black tracking-widest mb-1.5 flex items-center gap-1">
                     <i data-lucide="layout-grid" class="w-3.5 h-3.5 text-[#eab308]"></i> 15-MIN ORB QUANT MATRIX
                 </div>
                 <div class="text-[11px] space-y-1 text-[#c2c0b6]">
-                    <div class="flex justify-between"><span>15-Min Range High</span><span class="text-white font-bold" id="orb-range-high">₹0.00</span></div>
-                    <div class="flex justify-between border-b border-[#1c1b18] pb-1"><span>15-Min Range Low</span><span class="text-white font-bold" id="orb-range-low">₹0.00</span></div>
+                    <div class="flex justify-between"><span>15-Min High</span><span class="text-white font-bold" id="orb-range-high">₹0.00</span></div>
+                    <div class="flex justify-between border-b border-[#1c1b18] pb-1"><span>15-Min Low</span><span class="text-white font-bold" id="orb-range-low">₹0.00</span></div>
                     <div class="pt-1 flex justify-between"><span>VWAP Baseline</span><span class="text-[#a78bfa] font-bold" id="orb-vwap-val">₹0.00</span></div>
                     <div class="flex justify-between"><span>20-EMA Vector</span><span class="text-[#eab308] font-bold" id="orb-ema-val">₹0.00</span></div>
                 </div>
             </div>
 
-            <div class="border-t border-[#262420] pt-3 text-[11px] space-y-1.5 text-[#c2c0b6] mt-auto">
-                <div class="text-[10px] text-[#a09e95] font-black tracking-widest mb-1">ACCOUNT SYSTEMIC DRAWDOWN LEDGER</div>
-                <div class="flex justify-between border-b border-[#1c1b18] pb-1"><span>Realized Closed P&L</span><span class="text-[#4ade80] font-black" id="bottom-realized-pnl">+₹5,210.00</span></div>
-                <div class="flex justify-between border-b border-[#1c1b18] pb-1"><span>Floating Open Valuation</span><span class="text-[#f87171] font-black" id="bottom-floating-pnl">-₹2,010.50</span></div>
-                <div class="flex justify-between border-b border-[#1c1b18] pb-1"><span>Net Capital Drawdown</span><span class="text-[#f87171] font-black" id="bottom-drawdown">-0.20%</span></div>
-                <div class="flex justify-between"><span>Maximum Drawdown Bound</span><span class="text-white font-black">3.0% System Cap</span></div>
+            <div class="border border-[#262420] bg-[#0a0a09] p-3 rounded mt-auto flex-shrink-0">
+                <div class="text-[10px] text-[#a09e95] font-black tracking-widest mb-1.5 border-b border-[#1c1b18] pb-1 uppercase">
+                    Account Drawdown Ledger
+                </div>
+                <div class="text-[11px] space-y-1 text-[#c2c0b6]">
+                    <div class="flex justify-between"><span>Realized Closed P&L</span><span class="text-[#4ade80] font-black" id="bottom-realized-pnl">+₹5,210.00</span></div>
+                    <div class="flex justify-between"><span>Floating Open Valuation</span><span class="text-[#f87171] font-black" id="bottom-floating-pnl">-₹2,010.50</span></div>
+                    <div class="flex justify-between"><span>Net Capital Drawdown</span><span class="text-[#f87171] font-black" id="bottom-drawdown">-0.20%</span></div>
+                    <div class="flex justify-between text-[10px] pt-0.5 border-t border-[#1c1b18] mt-0.5"><span>Max Drawdown Bound</span><span class="text-white font-black">3.0% Cap</span></div>
+                </div>
             </div>
         </section>
     </main>
 
-    <section class="bg-[#151412] border border-[#262420] rounded p-3 grid grid-cols-3 gap-4 h-32 text-xs flex-shrink-0">
+    <section class="bg-[#151412] border border-[#262420] rounded p-2.5 grid grid-cols-3 gap-3 h-28 flex-shrink-0 w-full">
         
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-2 gap-2 h-full">
             <div class="bg-[#0a0a09] border border-[#262420] p-2 rounded flex flex-col justify-between">
-                <span class="text-[#a09e95] font-bold text-[10px]">NIFTY 50 INDEX</span>
-                <span class="text-[#f87171] font-black text-sm glow-red" id="panel-nifty-val">23,643.50</span>
-                <span class="text-[#f87171] text-[10px] font-bold">-46.10 (-0.19%)</span>
+                <span class="text-[#a09e95] font-bold text-[9px] tracking-wider uppercase">NIFTY 50 INDEX</span>
+                <span class="text-[#f87171] font-black text-sm glow-red leading-none" id="panel-nifty-val">23,643.50</span>
+                <span class="text-[#f87171] text-[9px] font-bold opacity-80 leading-none">-46.10 (-0.19%)</span>
             </div>
             <div class="bg-[#0a0a09] border border-[#262420] p-2 rounded flex flex-col justify-between">
-                <span class="text-[#a09e95] font-bold text-[10px]">BANK NIFTY INDEX</span>
-                <span class="text-[#f87171] font-black text-sm glow-red" id="panel-banknifty-val">53,710.35</span>
-                <span class="text-[#f87171] text-[10px] font-bold">-418.60 (-0.77%)</span>
+                <span class="text-[#a09e95] font-bold text-[9px] tracking-wider uppercase">BANK NIFTY INDEX</span>
+                <span class="text-[#f87171] font-black text-sm glow-red leading-none" id="panel-banknifty-val">53,710.35</span>
+                <span class="text-[#f87171] text-[9px] font-bold opacity-80 leading-none">-418.60 (-0.77%)</span>
             </div>
         </div>
 
-        <div class="bg-[#0a0a09] border border-[#262420] p-2 rounded flex flex-col justify-between relative">
-            <div class="flex justify-between items-center text-[10px] font-black tracking-wider text-[#a09e95]">
+        <div class="bg-[#0a0a09] border border-[#262420] p-1.5 rounded flex flex-col justify-between h-full relative">
+            <div class="flex justify-between items-center text-[9px] font-black tracking-wider text-[#a09e95] mb-0.5">
                 <span>ADVANCES & DECLINES (IN NIFTY 500)</span>
-                <span class="text-white">Ratio: 175 : 325</span>
+                <span class="text-white font-mono">Ratio: 175 : 325</span>
             </div>
-            <div class="flex items-center gap-1.5 w-full pt-1">
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#4ade80] font-bold">9</span>
-                    <div class="bg-[#4ade80] h-2 w-full rounded-sm opacity-40"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">>5%</span>
+            <div class="flex items-end gap-1.5 w-full flex-1 mb-1 max-h-[48px]">
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[8px] text-[#4ade80] font-bold leading-none mb-0.5">9</span>
+                    <div class="bg-[#4ade80] h-1.5 w-full rounded-sm opacity-40"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">>5%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#4ade80] font-bold">31</span>
-                    <div class="bg-[#4ade80] h-5 w-full rounded-sm opacity-70"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">5-2%</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[9px] text-[#4ade80] font-bold leading-none mb-0.5">31</span>
+                    <div class="bg-[#4ade80] h-3.5 w-full rounded-sm opacity-70"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">5-2%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#4ade80] font-bold">135</span>
-                    <div class="bg-[#4ade80] h-10 w-full rounded-sm"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">2-0%</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[9px] text-[#4ade80] font-bold leading-none mb-0.5">135</span>
+                    <div class="bg-[#4ade80] h-7 w-full rounded-sm"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">2-0%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-gray-500 font-bold">0</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[8px] text-gray-500 font-bold leading-none mb-0.5">0</span>
                     <div class="bg-gray-700 h-0.5 w-full rounded-sm"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">0%</span>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">0%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#f87171] font-bold">239</span>
-                    <div class="bg-[#f87171] h-14 w-full rounded-sm"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">0-2%</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[9px] text-[#f87171] font-bold leading-none mb-0.5">239</span>
+                    <div class="bg-[#f87171] h-9 w-full rounded-sm"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">0-2%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#f87171] font-bold">81</span>
-                    <div class="bg-[#f87171] h-8 w-full rounded-sm opacity-70"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">2-5%</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[9px] text-[#f87171] font-bold leading-none mb-0.5">81</span>
+                    <div class="bg-[#f87171] h-5 w-full rounded-sm opacity-70"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">2-5%</span>
                 </div>
-                <div class="flex flex-col gap-0.5 items-center w-1/7">
-                    <span class="text-[9px] text-[#f87171] font-bold">5</span>
-                    <div class="bg-[#f87171] h-1.5 w-full rounded-sm opacity-40"></div>
-                    <span class="text-[8px] text-[#a09e95] font-bold">5%<</span>
+                <div class="flex flex-col items-center w-1/7">
+                    <span class="text-[9px] text-[#f87171] font-bold leading-none mb-0.5">5</span>
+                    <div class="bg-[#f87171] h-1 w-full rounded-sm opacity-40"></div>
+                    <span class="text-[7px] text-[#a09e95] font-black tracking-tighter mt-0.5 scale-90">5%<</span>
                 </div>
             </div>
-            <div class="w-full flex h-1.5 rounded-full overflow-hidden border border-[#151412] mt-1">
+            <div class="w-full flex h-1 rounded-full overflow-hidden border border-[#151412] flex-shrink-0">
                 <div class="bg-[#4ade80] h-full" style="width: 35%"></div>
                 <div class="bg-[#f87171] h-full" style="width: 65%"></div>
             </div>
         </div>
 
-        <div class="bg-[#0a0a09] border border-[#262420] p-2 rounded flex flex-col justify-between text-[11px]">
-            <div class="text-[10px] font-black text-[#a09e95] tracking-wider uppercase border-b border-[#1c1b18] pb-1">
+        <div class="bg-[#0a0a09] border border-[#262420] p-1.5 rounded flex flex-col justify-between h-full text-[10px]">
+            <div class="text-[9px] font-black text-[#a09e95] tracking-wider uppercase border-b border-[#1c1b18] pb-0.5 leading-none">
                 FII & DII (Cash Segment)
             </div>
             <div class="flex justify-between items-center py-0.5">
-                <span class="text-white font-bold flex items-center gap-1">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-[#4ade80]"></span> FII
+                <span class="text-white font-bold flex items-center gap-1 text-[10px]">
+                    <span class="w-2 h-2 rounded-sm bg-[#4ade80]"></span> FII Volume Flow
                 </span>
-                <span class="text-[#4ade80] font-black tracking-wide">+₹1,329.20 Cr</span>
+                <span class="text-[#4ade80] font-black tracking-wide text-[11px]">+₹1,329.20 Cr</span>
             </div>
-            <div class="text-[9px] text-[#a09e95] italic px-3.5">FII were net buyers on 15 May 2026</div>
             <div class="flex justify-between items-center py-0.5">
-                <span class="text-white font-bold flex items-center gap-1">
-                    <span class="w-2.5 h-2.5 rounded-sm bg-[#f87171]"></span> DII
+                <span class="text-white font-bold flex items-center gap-1 text-[10px]">
+                    <span class="w-2 h-2 rounded-sm bg-[#f87171]"></span> DII Volume Flow
                 </span>
-                <span class="text-[#f87171] font-black tracking-wide">-₹1,958.80 Cr</span>
+                <span class="text-[#f87171] font-black tracking-wide text-[11px]">-₹1,958.80 Cr</span>
             </div>
-            <div class="text-[9px] text-[#a09e95] italic px-3.5">DII were net sellers on 15 May 2026</div>
+            <div class="text-[8px] text-[#a09e95] font-bold italic text-right border-t border-[#1c1b18] pt-0.5 mt-0.5 leading-none">
+                Net Data Settled Matrix: 15 May 2026
+            </div>
         </div>
     </section>
 
-    <footer class="flex gap-2 items-center text-[11px] h-6 mt-auto">
-        <div class="bg-[#151412] border border-[#262420] px-4 h-full flex items-center gap-5 rounded text-[#c2c0b6] font-bold w-full">
-            <div>NSE STATUS DATA PIPELINE MONITOR FEED SECURE</div>
-            <div class="ml-auto text-[10px] text-[#a09e95] font-black tracking-widest">20-YEAR EXPERT QUANT ARCHITECTURE</div>
-        </div>
+    <footer class="bg-[#151412] border border-[#262420] px-4 h-5 rounded text-[10px] font-bold flex items-center justify-between flex-shrink-0 w-full text-[#a09e95]">
+        <div>NSE STATUS PIPELINE STREAM RELAY SECURE</div>
+        <div class="tracking-widest uppercase font-black text-[9px]">20-YEAR EXPERT QUANT ARCHITECTURE</div>
     </footer>
 
     <script>
         lucide.createIcons();
 
-        // NATIVE HIGH-FIDELITY ARCHIVE SETTLEMENT DICTIONARY (STABLE CLOSING PRICE RECORDS AS OF 15 MAY 2026)
+        // AUTHENTIC LIQUID HISTORICAL SETTLEMENT DIRECTORY AS OF 15 MAY 2026
         const stockDatabase = {
             "RELIANCE": { fullName: "RELIANCE INDUSTRIES LIMITED", cmp: 1336.00, rsi: 54.20, chartSeed: [1354, 1358, 1355, 1350, 1348, 1344, 1341, 1346, 1342, 1339, 1335, 1338, 1334, 1338, 1336.00] },
-            "TCS": { fullName: "TATA CONSULTANCY SERVICES LTD", cmp: 2249.90, rsi: 48.15, chartSeed: [2270, 2265, 2268, 2255, 2244, 2250, 2241, 2246, 2238, 2245, 2242, 2248, 2252, 2248, 2249.90] },
+            "TCS": { fullName: "TATA CONSULTANCY SERVICES LTD", cmp: 2249.90, rsi: 48.15, chartSeed: [2272, 2265, 2268, 2255, 2244, 2250, 2241, 2246, 2238, 2245, 2242, 2248, 2252, 2248, 2249.90] },
             "INFY": { fullName: "INFOSYS LIMITED", cmp: 1094.10, rsi: 52.40, chartSeed: [1123, 1118, 1120, 1110, 1098, 1104, 1092, 1096, 1090, 1095, 1093, 1097, 1099, 1096, 1094.10] },
             "SBIN": { fullName: "STATE BANK OF INDIA", cmp: 963.20, rsi: 51.80, chartSeed: [975, 978, 974, 971, 969, 965, 963, 968, 964, 961, 958, 962, 960, 964, 963.20] },
             "HDFCBANK": { fullName: "HDFC BANK LIMITED", cmp: 770.10, rsi: 43.50, chartSeed: [782, 778, 780, 774, 771, 775, 768, 772, 769, 766, 763, 768, 765, 769, 770.10] },
@@ -275,35 +276,6 @@
         let globalVolatilityOffset = 0;
         let globalActiveSignalDirection = "BUY";
 
-        function runSystemClockTicker() {
-            const timeObject = new Date();
-            document.getElementById('clock-display').innerText = timeObject.toTimeString().split(' ')[0];
-        }
-        setInterval(runSystemClockTicker, 1000);
-        runSystemClockTicker();
-
-        const UI_Canvas_Node = document.getElementById('primaryWaveformCanvas').getContext('2d');
-        let simulationChartEngine = new Chart(UI_Canvas_Node, {
-            type: 'line',
-            data: {
-                labels: Array.from({length: 15}, (_, i) => `11:${15 + i * 5}`),
-                datasets: [
-                    { label: 'Market Price Line', borderColor: '#4ade80', borderWidth: 2, pointRadius: 0, fill: false, tension: 0.1, data: [] },
-                    { label: '9-EMA Signal Layer', borderColor: '#eab308', borderWidth: 1.2, borderDash: [2, 2], pointRadius: 0, fill: false, tension: 0.1, data: [] }
-                ]
-            },
-            options: {
-                responsive: true,
-                maintainAspectRatio: false,
-                plugins: { legend: { display: false } },
-                scales: {
-                    x: { grid: { color: '#1f1e1a' }, ticks: { color: '#a09e95', font: { size: 9 } } },
-                    y: { position: 'right', grid: { color: '#1f1e1a' }, ticks: { color: '#a09e95', font: { size: 9 } } }
-                }
-            }
-        });
-
-        // FIXED ACTION METHOD: ACCEPTS SELECTIONS FROM SEARCH TRAY OR WATCHLIST DYNAMICALLY
         function loadStockDataOnline(ticker) {
             const stock = stockDatabase[ticker];
             if (!stock) return;
@@ -316,7 +288,6 @@
             document.getElementById('active-ticker-fullname').innerText = stock.fullName;
             document.getElementById('active-ticker-cmp').innerText = `Settled LTP: ₹${stock.cmp.toLocaleString('en-IN', {minimumFractionDigits: 2})}`;
 
-            // Calculate Opening Range Breakout Matrix
             const calculatedRangeHigh = stock.chartSeed[3] * 1.002;
             const calculatedRangeLow = stock.chartSeed[3] * 0.998;
             document.getElementById('orb-range-high').innerText = `₹${calculatedRangeHigh.toFixed(2)}`;
@@ -324,7 +295,6 @@
             document.getElementById('orb-vwap-val').innerText = `₹${(stock.cmp * 0.997).toFixed(2)}`;
             document.getElementById('orb-ema-val').innerText = `₹${(stock.cmp * 0.999).toFixed(2)}`;
 
-            // Bi-Directional Indicator Signaling Rules
             if (stock.rsi >= 50) {
                 globalActiveSignalDirection = "BUY";
                 document.getElementById('active-stock-trend').innerText = "ORB BULLISH BREAKOUT";
@@ -354,14 +324,12 @@
             recalculateRiskParameters();
             renderWatchlistFrame();
 
-            // Refresh Line Graphs with the fixed historical closing coordinates
             simulationChartEngine.data.datasets[0].data = stock.chartSeed;
             simulationChartEngine.data.datasets[1].data = stock.chartSeed.map((v, i) => v * (i % 2 === 0 ? 0.999 : 1.001));
             simulationChartEngine.data.datasets[0].borderColor = globalActiveSignalDirection === "BUY" ? "#4ade80" : "#f87171";
             simulationChartEngine.update();
         }
 
-        // POSITION-SIZING RISK ALLOCATION MECHANICS
         function recalculateRiskParameters() {
             if (globalCalculatedCmp === 0) return;
 
@@ -389,7 +357,6 @@
             document.getElementById('exec-risk-allotment').innerText = `₹${(sharesQuantityToTrade * pointsDifference).toLocaleString('en-IN', {maximumFractionDigits: 2})}`;
         }
 
-        // Render Sidebars Top 10 Navigation Grid List Elements
         function renderWatchlistFrame() {
             const container = document.getElementById('watchlist-container');
             container.innerHTML = "";
@@ -410,7 +377,6 @@
             });
         }
 
-        // FIXED ACTION STATEMENT: SEARCH INPUT GRABS CORRESPONDING TICKER MATCHES FROM MASTER STOCK DIRECTORY
         function filterStockSearchOnline() {
             const inputField = document.getElementById('stock-search-input');
             const searchDropdown = document.getElementById('search-results-dropdown');
@@ -421,11 +387,10 @@
                 return;
             }
 
-            // Find all stocks in the database that match user letters
             const matchedKeys = Object.keys(stockDatabase).filter(key => key.includes(userQuery));
 
             if (matchedKeys.length === 0) {
-                searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching corporate tickers found</div>`;
+                searchDropdown.innerHTML = `<div class="p-3 text-xs text-[#a09e95] italic">No matching tickers found</div>`;
             } else {
                 searchDropdown.innerHTML = "";
                 matchedKeys.forEach(ticker => {
