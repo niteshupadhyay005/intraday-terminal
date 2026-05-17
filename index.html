@@ -248,7 +248,7 @@
     </section>
 
     <footer class="bg-[#151412] border border-[#262420] px-4 h-5 rounded text-[10px] font-bold flex items-center justify-between flex-shrink-0 w-full text-[#a09e95]">
-        <div>NSE STATUS PIPELINE STREAM RELAY SECURE</div>
+        <div>NSE STATUS PIPELINE MONITOR FEED SECURE</div>
         <div class="tracking-widest uppercase font-black text-[9px]">20-YEAR EXPERT QUANT ARCHITECTURE</div>
     </footer>
 
@@ -414,6 +414,17 @@
             document.getElementById('stock-search-input').value = "";
             loadStockDataOnline(ticker);
         }
+
+        // NEW BACKGROUND COMPONENT: AUTO-RESTORES Price Waveform Graphic Coordinates If Proxies Throttle
+        function verifyAndPatchVisualNodes() {
+            if(simulationChartEngine.data.datasets[0].data.length === 0) {
+                const backupStockRecord = stockDatabase[currentLoadedTicker];
+                if(backupStockRecord) {
+                    loadStockDataOnline(currentLoadedTicker);
+                }
+            }
+        }
+        setInterval(verifyAndPatchVisualNodes, 1000);
 
         document.addEventListener('click', function(e) {
             const containerBox = document.getElementById('stock-search-input').parentElement.parentElement;
